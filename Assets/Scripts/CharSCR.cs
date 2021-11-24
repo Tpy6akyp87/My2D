@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class CharSCR : Unit
 {
     [SerializeField]
-    private int lives = 5;
+    private int lives = 50;
 
     public int Lives
     {
