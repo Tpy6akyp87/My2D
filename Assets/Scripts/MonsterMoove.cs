@@ -40,13 +40,7 @@ public class MonsterMoove : Monster
                 Debug.Log("MoveMonsterDamage");
             }
         }
-        //Bullet bullet = collider.GetComponent<Bullet>();
-        //if (bullet)
-        //{
-        //    ReceiveDamage();
-        //    Debug.Log("MonsterFromBulletDie");
-        //}
-
+      
     }
     private void Move()
     {
