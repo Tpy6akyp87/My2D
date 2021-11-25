@@ -7,7 +7,6 @@ public class CharSCR : Unit
 {
     [SerializeField]
     private int lives = 5;
-    private 
     public int Lives
     {
         get { return lives; }
@@ -54,12 +53,9 @@ public class CharSCR : Unit
     
     private void Update()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up*(-0.5F)  + transform.right * direction.x * 0.6F, 0.05F);
-        
         State = CharState.Idle;
         if (Input.GetButton("Horizontal")) Run();
         if (Input.GetButton("Vertical")) Climb();
-        
         if (isGrounded && Input.GetButtonDown("Jump")) Jump();
         if (rigidbody.velocity.y < 0) State = CharState.Fall;
         if (rigidbody.velocity.y > 0) State = CharState.Jump;
@@ -111,6 +107,14 @@ public class CharSCR : Unit
     {
         
         isGrounded = rigidbody.velocity.y == 0;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = collision.transform;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = null;
     }
 
 }
