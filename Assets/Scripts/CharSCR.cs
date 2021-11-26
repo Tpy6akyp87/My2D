@@ -6,7 +6,19 @@ using UnityEngine.SceneManagement;
 public class CharSCR : Unit
 {
     [SerializeField]
-    private int lives = 100;
+    private int lives = 5;
+    private HealthBar healthBar;
+    [SerializeField]
+    private float speed = 5.0F;
+    [SerializeField]
+    public float jumpForce = 13.0F; //всегда менять и у лестницы в скрипте
+    private bool isGrounded = false;
+    private Bullet bullet;
+    new public Rigidbody2D rigidbody;
+    private Animator animator;
+    private SpriteRenderer sprite;
+    int playerObject, platformObject;
+
     public int Lives
     {
         get { return lives; }
@@ -16,22 +28,11 @@ public class CharSCR : Unit
             healthBar.Refresh();
         }
     }
-    private HealthBar healthBar;
-
-    [SerializeField]
-    private float speed = 5.0F;
-    [SerializeField]
-    public float jumpForce = 25.0F; //всегда менять и у лестницы в скрипте
-
-    private bool isGrounded = false;
-
-    private Bullet bullet;
-
-    new public Rigidbody2D rigidbody;
-    private Animator animator;
-    private SpriteRenderer sprite;
-    
-
+    private void Start()
+    {
+        playerObject = LayerMask.NameToLayer("Player");
+        platformObject = LayerMask.NameToLayer("Platforms");
+    }
     public void Awake()
     {
         healthBar = FindObjectOfType<HealthBar>();
@@ -57,8 +58,18 @@ public class CharSCR : Unit
         if (Input.GetButton("Horizontal")) Run();
         if (Input.GetButton("Vertical")) Climb();
         if (isGrounded && Input.GetButtonDown("Jump")) Jump();
-        if (rigidbody.velocity.y < 0) State = CharState.Fall;
-        if (rigidbody.velocity.y > 0) State = CharState.Jump;
+        if (rigidbody.velocity.y < 0)
+        {
+            Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
+            Debug.Log("IgnoreFalse");
+            State = CharState.Fall;
+        }
+        if (rigidbody.velocity.y > 0)
+        {
+            State = CharState.Jump;
+            Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
+            Debug.Log("IgnoreTrue");
+        }
         if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Shoot();
         if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
         

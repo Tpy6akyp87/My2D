@@ -21,7 +21,7 @@ public class Stairs : MonoBehaviour
         if (unit)
         {
             unit.rigidbody.gravityScale = 3;
-            unit.jumpForce = 25;
+            unit.jumpForce = 13;
         }
     }
 }
