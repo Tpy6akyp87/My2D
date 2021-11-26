@@ -93,7 +93,7 @@ public class CharSCR : Unit
     {
         Vector3 position = transform.position; 
         position.y += -0.5F;
-        position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.1F;
+        position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.9F;
         Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);

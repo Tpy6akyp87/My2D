@@ -36,22 +36,13 @@ public class Bullet : MonoBehaviour
         Unit unit = collider.GetComponent<Unit>();
         if (unit && unit.gameObject != parent)
         {
-         Destroy(gameObject);
-         unit.ReceiveDamage();
-        }
-        if (collider.gameObject.Equals("Tilemap"))
-        {
             Destroy(gameObject);
-            Debug.Log("DestroyBullet");
+            unit.ReceiveDamage();
         }
+        
+        Debug.Log(collider.name);
 
     }
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.collider.gameObject.Equals("Tilemap"))
-    //    {
-    //        Destroy(gameObject);
-    //        Debug.Log("DestroyBullet");
-    //    }
-    //}
+    
+
 }
