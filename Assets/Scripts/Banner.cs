@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Banner : MonoBehaviour
 {
-    public void Update()
-    {
-        Invoke("Destroy(gameObject)",4);
-    }
+   
 
    
 }
