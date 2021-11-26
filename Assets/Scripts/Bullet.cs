@@ -39,6 +39,19 @@ public class Bullet : MonoBehaviour
          Destroy(gameObject);
          unit.ReceiveDamage();
         }
-           
+        if (collider.gameObject.Equals("Tilemap"))
+        {
+            Destroy(gameObject);
+            Debug.Log("DestroyBullet");
+        }
+
     }
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.collider.gameObject.Equals("Tilemap"))
+    //    {
+    //        Destroy(gameObject);
+    //        Debug.Log("DestroyBullet");
+    //    }
+    //}
 }

@@ -61,14 +61,12 @@ public class CharSCR : Unit
         if (rigidbody.velocity.y < 0)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
-            Debug.Log("IgnoreFalse");
             State = CharState.Fall;
         }
         if (rigidbody.velocity.y > 0)
         {
             State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
-            Debug.Log("IgnoreTrue");
         }
         if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Shoot();
         if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
