@@ -40,12 +40,6 @@ public class MonsterShoot : Monster
    
     protected override void OnTriggerEnter2D(Collider2D collider)
     {
-        //Bullet bullet = collider.GetComponent<Bullet>();
-        //if (bullet)
-        //{
-        //    ReceiveDamage();
-        //    Debug.Log("MonsterFromBulletDie");
-        //}
         Unit unit = collider.GetComponent<Unit>();
         if (unit && unit is CharSCR)
         {

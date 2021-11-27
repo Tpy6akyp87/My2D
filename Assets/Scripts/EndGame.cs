@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class EndGame : MonoBehaviour
 {
     [SerializeField]
-    private string nextscene;
+    private string nextscene = null;
     public void OnTriggerEnter2D(Collider2D collider)
     {
         Unit unit = collider.GetComponent<Unit>();

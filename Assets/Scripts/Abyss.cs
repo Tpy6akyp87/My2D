@@ -5,9 +5,9 @@ using UnityEngine;
 public class Abyss : MonoBehaviour
 {
     [SerializeField]
-    private Transform character;
+    private Transform character = null;
     [SerializeField]
-    private Transform respawnPoint;
+    private Transform respawnPoint = null;
     public void OnTriggerEnter2D(Collider2D collider)
     {
         Unit unit = collider.GetComponent<Unit>();

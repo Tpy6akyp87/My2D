@@ -30,6 +30,10 @@ public class Bullet : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
     }
+    public void DestroyBullet()
+    {
+        Destroy(gameObject);
+    }
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
@@ -39,10 +43,7 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
             unit.ReceiveDamage();
         }
-        
-        Debug.Log(collider.name);
-
+       
     }
     
-
 }
