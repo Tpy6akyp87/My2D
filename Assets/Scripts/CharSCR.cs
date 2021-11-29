@@ -69,7 +69,7 @@ public class CharSCR : Unit
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Shoot();
-        if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
+        //if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
         
     }
 
