@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Abyss : MonoBehaviour
+public class Resurrectionpoint : MonoBehaviour
 {
     [SerializeField]
     private Transform character = null;
