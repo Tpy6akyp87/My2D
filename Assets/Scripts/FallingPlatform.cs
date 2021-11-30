@@ -24,6 +24,7 @@ public class FallingPlatform : MonoBehaviour
     {
         //Destroy(gameObject);
         gameObject.SetActive(true);
+        gameObject.
         sprite.color.a.Equals(0.2);
     }
     public virtual void FullTR()
