@@ -4,43 +4,45 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-    private SpriteRenderer sprite;
-    public Color Color
+    new public Rigidbody2D rigidbody;
+    [SerializeField]
+    private Transform platform = null;
+    [SerializeField]
+    private Transform startposition = null;
+    public void Awake()
     {
-        get { return Color.white; }
-        set { sprite.color = value; }
+        rigidbody = GetComponent<Rigidbody2D>();
+        
     }
+    
     public virtual void DestroyPlatform()
     {
         gameObject.SetActive(false);
-        //Destroy(gameObject);
-        
     }
-    private void Awake()
+    public virtual void ActiveRB()
     {
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        rigidbody.bodyType = RigidbodyType2D.Dynamic;
+       
     }
+    
     public virtual void CreatePlatform()
     {
-        //Destroy(gameObject);
+        rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        platform.transform.position = startposition.transform.position;
+        platform.transform.rotation = startposition.transform.rotation;
         gameObject.SetActive(true);
-        gameObject.
-        sprite.color.a.Equals(0.2);
     }
-    public virtual void FullTR()
-    {
-        sprite.color.a.Equals(0.4);
-        sprite.color.a.ToString("0.4");
-
-    }
+  
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name.Equals("Character"))
         {
-            Invoke("DestroyPlatform", 1);
+
+            Invoke("ActiveRB", 0.7F);
+            Invoke("DestroyPlatform", 1.5F);
             Invoke("CreatePlatform", 4);
-            Invoke("FullTR", 5);
+          
         }
     }
 }
