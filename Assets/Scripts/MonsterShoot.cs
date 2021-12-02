@@ -37,7 +37,7 @@ public class MonsterShoot : Monster
         newBullet.Color = bulletColor;
     }
 
-   
+
     protected override void OnTriggerEnter2D(Collider2D collider)
     {
         Unit unit = collider.GetComponent<Unit>();
