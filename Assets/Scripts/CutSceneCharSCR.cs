@@ -30,13 +30,13 @@ public class CutSceneCharSCR : Unit
     private void Run()
     {
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        State = CharStateC.Run;
         if (direction.x > 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speedwalk * Time.deltaTime);
             //sprite.flipX = direction.x < 0;
-            State = CharStateC.Run;
         }
-        else sprite.flipX = direction.x < 0;
+        //else sprite.flipX = direction.x < 0;
     }
   
 }
