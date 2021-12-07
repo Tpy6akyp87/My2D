@@ -73,7 +73,7 @@ public class CharSCR : Unit
         
     }
 
-    private void Run()
+    public void Run()
     {
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
