@@ -52,6 +52,7 @@ public class Dialog : MonoBehaviour
                 i++;
                 textCS.text = message[i];
             }
+           if (i>=6) Invoke("DialogFade", 2);
         }
     }
 }

@@ -7,10 +7,10 @@ public class EndGame : MonoBehaviour
 {
     [SerializeField]
     private string nextscene = null;
-    public void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        Unit unit = collider.GetComponent<Unit>();
-        if (unit && unit is CharSCR)
+        
+        if (collision.tag == "Player")
         {
             SceneManager.LoadScene(nextscene);
         }
