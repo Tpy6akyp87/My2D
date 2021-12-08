@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Assets",
+    "\\Assets\\Scripts"
   ],
-  "SelectedNode": "\\D:\\Unity\\UP\\My2D",
+  "SelectedNode": "\\Assets\\Scripts\\MonsterHight.cs",
   "PreviewInSolutionExplorer": false
 }
