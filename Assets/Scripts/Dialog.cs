@@ -47,7 +47,7 @@ public class Dialog : MonoBehaviour
     {
         if (dialogStart == true)
         {
-            if (Input.GetKeyDown(KeyCode.R) && i < 5)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && i < 5)
             {
                 i++;
                 textCS.text = message[i];
