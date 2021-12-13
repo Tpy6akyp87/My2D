@@ -68,9 +68,10 @@ public class CharSCR : Unit
             State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
-        if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Shoot();
+        if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused) Shoot();
+        if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Attack();
         //if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
-        
+
     }
 
     public void Run()
@@ -97,7 +98,11 @@ public class CharSCR : Unit
         Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
-    } 
+    }
+    public void Attack()
+    {
+        State = CharState.Meelee;
+    }
 
     private void Jump()
     {
@@ -132,5 +137,6 @@ public enum CharState{
     Idle,
     Run,
     Jump,
-    Fall
+    Fall,
+    Meelee
 }
