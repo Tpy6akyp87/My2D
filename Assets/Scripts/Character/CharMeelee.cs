@@ -20,17 +20,23 @@ public class CharMeelee : MonoBehaviour
             {
                 //anim.SetTrigger("attack");
                 Debug.Log(" нопка нажалась");
-                Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
-                for (int i = 0; i < enemies.Length; i++)
-                {
-                    enemies[i].GetComponent<Monster>().ReceiveDamage();
-                }
+                OnAttack();
+                
             }
             timeBtwAtack = startTimeBtwAttack;
         }
         else
         {
             timeBtwAtack -= Time.deltaTime;
+        }
+    }
+
+    public void OnAttack()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<Monster>().ReceiveDamage();
         }
     }
     private void OnDrawGizmosSelected()
