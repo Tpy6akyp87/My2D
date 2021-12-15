@@ -18,6 +18,7 @@ public class CharSCR : Unit
     private Animator animator;
     private SpriteRenderer sprite;
     int playerObject, platformObject;
+    public bool isFlip = false;
 
     public int Lives
     {
@@ -61,11 +62,11 @@ public class CharSCR : Unit
         if (rigidbody.velocity.y < 0)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
-            State = CharState.Fall;
+            //State = CharState.Fall;
         }
         if (rigidbody.velocity.y > 0)
         {
-            State = CharState.Jump;
+           // State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused) Shoot();
@@ -113,8 +114,9 @@ public class CharSCR : Unit
     public override void ReceiveDamage()
     {
         Lives--;
-        rigidbody.AddForce(transform.up * 4.0F, ForceMode2D.Impulse);
+        //rigidbody.AddForce(transform.up * 4.0F, ForceMode2D.Impulse);
         Debug.Log(lives);
+        State = CharState.RDamage;
     }
 
     private void CheckGround() 
@@ -138,5 +140,6 @@ public enum CharState{
     Run,
     Jump,
     Fall,
-    Meelee
+    Meelee,
+    RDamage
 }

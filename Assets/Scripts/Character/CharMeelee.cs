@@ -11,15 +11,22 @@ public class CharMeelee : MonoBehaviour
     public LayerMask enemy;
     public float attackRange;
     public int damage;
+    private CharSCR pers;
     //public Animator anim;
     public void Update()
     {
+        pers = FindObjectOfType<CharSCR>();
+        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        Debug.Log(direction);
+        if (direction.x < 0) attackPos.transform.position =pers.transform.position + new Vector3(-1.19F,-0.36F,0);
+        if (direction.x > 0) attackPos.transform.position = pers.transform.position + new Vector3(1.19F, -0.36F, 0);
+
         if (timeBtwAtack <= 0)
         {
             if (Input.GetMouseButton(0))
             {
                 //anim.SetTrigger("attack");
-                Debug.Log(" нопка нажалась");
+                //Debug.Log(" нопка нажалась");
                 OnAttack();
                 
             }
