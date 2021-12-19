@@ -52,25 +52,42 @@ public class CharSCR : Unit
         get { return (CharState)animator.GetInteger("State"); }
         set { animator.SetInteger("State", (int)value); }
     }
-    
+
     private void Update()
     {
         State = CharState.Idle;
-        if (Input.GetButton("Horizontal")) Run();
-        if (Input.GetButton("Vertical")) Climb();
-        if (isGrounded && Input.GetButtonDown("Jump")) Jump();
+        if (Input.GetButton("Horizontal")) 
+        { 
+            Run(); //Debug.Log(State);
+        }
+        if (Input.GetButton("Vertical")) 
+        { 
+            Climb(); //Debug.Log(State);
+        }
+        if (isGrounded && Input.GetButtonDown("Jump")) 
+        { 
+            Jump(); //Debug.Log(State);
+        }
         if (rigidbody.velocity.y < 0)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
-            //State = CharState.Fall;
+            State = CharState.Fall;
+            //Debug.Log(State);
         }
         if (rigidbody.velocity.y > 0)
         {
-           // State = CharState.Jump;
+            State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
+            //Debug.Log(State);
         }
-        if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused) Shoot();
-        if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) Attack();
+        if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
+        {
+            Shoot(); //Debug.Log(State); 
+        }
+        //if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) 
+        //{
+        //    Attack(); //Debug.Log(State);
+        //}
         //if (lives ==0) SceneManager.LoadScene("Menu");// добавить экран геймовер
 
     }
