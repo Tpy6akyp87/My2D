@@ -19,6 +19,8 @@ public class CharSCR : Unit
     private SpriteRenderer sprite;
     int playerObject, platformObject;
     public bool isFlip = false;
+    private float timeBtwShoot;
+    public float startTimeBtwShoot;
 
     public int Lives
     {
@@ -80,9 +82,18 @@ public class CharSCR : Unit
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
             //Debug.Log(State);
         }
-        if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
+        if (timeBtwShoot <= 0)
         {
-            Shoot(); //Debug.Log(State); 
+            if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
+            {
+                Shoot();
+                timeBtwShoot = startTimeBtwShoot;
+                //Debug.Log(State); 
+            }
+        }
+        else
+        {
+            timeBtwShoot -= Time.deltaTime;
         }
         //if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) 
         //{

@@ -11,6 +11,7 @@ public class Dialog : MonoBehaviour
     public string[] message;
     public bool dialogStart = false;
     public int i = 0;
+    private CharSCR pers;
     private void Start()
     {
        // panelDialog.transform.position = thoseWhoSay.transform.position;
@@ -33,6 +34,10 @@ public class Dialog : MonoBehaviour
             panelDialog.SetActive(true);
             dialogStart = true; 
             textCS.text = message[0];
+        }
+        if (collision.tag == "Chest")
+        {
+            pers.gameObject.SetActive(false);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

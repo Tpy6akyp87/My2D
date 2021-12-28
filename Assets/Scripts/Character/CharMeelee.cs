@@ -10,7 +10,7 @@ public class CharMeelee : MonoBehaviour
     public Transform attackPos;
     public LayerMask enemy;
     public float attackRange;
-    public int damage;
+    //public int damage;
     private CharSCR pers;
     //public Animator anim;
     public void Update()
