@@ -35,10 +35,10 @@ public class Dialog : MonoBehaviour
             dialogStart = true; 
             textCS.text = message[0];
         }
-        if (collision.tag == "Chest")
-        {
-            pers.gameObject.SetActive(false);
-        }
+        //if (collision.tag == "Chest")
+        //{
+        //    pers.gameObject.SetActive(false);
+        //}
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
