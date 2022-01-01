@@ -7,37 +7,63 @@ public class MonsterSSD : Monster
 {
     [SerializeField]
     private float speed = 0.5F;
-    private Bullet bullet;
+    [SerializeField]
+    private float attackdistance;
+    //private Bullet bullet;
     private SpriteRenderer sprite;
     private Vector3 direction;
     private CharSCR pers;
-
+    public Transform attackPos;
+    public LayerMask enemy;
+    public float attackRange;
+    private float timeBtwAtack;
+    public float startTimeBtwAttack;
+    private Animator animator;
 
 
     protected override void Awake()
     {
+        animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        bullet = Resources.Load<Bullet>("Bullet");
+    }
+    private bool IsPlayerNear
+    {
+        get { return animator.GetBool("IsPlayerNear"); }
+        set { animator.SetBool("IsPlayerNear", value); }
     }
 
     protected override void Update()
     {
-        Move();
+        IsPlayerNear = false;
+        pers = FindObjectOfType<CharSCR>();
+        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.48F, 0, 0);
+        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.48F, 0, 0);
+
+        if (timeBtwAtack <= 0)
+        {
+            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= attackdistance)
+            {
+                IsPlayerNear = true;
+                timeBtwAtack = startTimeBtwAttack;
+            }
+            else
+            {
+                IsPlayerNear = false;
+                Move();
+            }
+        }
+        else
+        {
+            timeBtwAtack -= Time.deltaTime;
+        }
     }
     protected override void Start()
     {
         direction = transform.right;
     }
-    protected override void OnTriggerEnter2D(Collider2D collider)
-    {
-        Unit unit = collider.GetComponent<Unit>();
-        if (unit && unit is CharSCR)
-        {           
-                unit.ReceiveDamage();
-                Debug.Log("MonsterSSDDamage");
-        }
-        
-    }
+    
+    
     private void Move()
     {
         pers = FindObjectOfType<CharSCR>();
@@ -53,10 +79,32 @@ public class MonsterSSD : Monster
         }
         if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > 5 || Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) > 1) speed = 0.5F;
 
+        //разворот у преграды
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.5F) + transform.right * direction.x * 0.6F, 0.05F);
         if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<CharSCR>())) direction *= -1.0F;
         sprite.flipX = direction.x < 0;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+    }
+    public void OnAttack()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<CharSCR>().ReceiveDamage();
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        //Gizmos.DrawSphere(attackPos.position, attackRange);
+    }
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Debug.Log("SSDMonsterDamage");
+        }
     }
 }

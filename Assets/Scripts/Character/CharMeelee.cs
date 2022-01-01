@@ -37,7 +37,7 @@ public class CharMeelee : MonoBehaviour
         {
             timeBtwAtack -= Time.deltaTime;
         }
-        Debug.Log(timeBtwAtack);
+        //Debug.Log(timeBtwAtack);
     }
 
     public void OnAttack()
