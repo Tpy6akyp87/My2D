@@ -106,7 +106,7 @@ public class CharSCR : Unit
 
     public void Run()
     {
-        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        Vector3 direction = transform.right * Input.GetAxis("Horizontal"); 
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
         State = CharState.Run;
