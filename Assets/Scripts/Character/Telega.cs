@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Telega : MonoBehaviour
 {
+    public GameObject Thievs;
     public float speed = 2.0F;
     private void Update()
     {
@@ -13,12 +14,23 @@ public class Telega : MonoBehaviour
         }
         
     }
+    public void ActivateThiefs()
+    {
+        Thievs.SetActive(true);
+    }
+    public void DestroyTelega()
+    {
+        Destroy(gameObject);
+        Thievs.SetActive(false);
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Dialog2")
         {
             Debug.Log("Телега прила к смерти");
-            Destroy(gameObject);
+            Invoke("DestroyTelega",2.3F);
+            speed = 0.0F;
+            Invoke("ActivateThiefs",1);
         }
     }
     

@@ -5,35 +5,72 @@ using UnityEngine;
 public class MonsterShoot : Monster
 {
     [SerializeField]
-    private float rate = 2.0F;
+    private float shootdistance;
     private Bullet bullet;
     [SerializeField]
     private Color bulletColor = Color.white;
     private SpriteRenderer sprite;
     private CharSCR pers;
-    
+    private Animator animator;
+    private float timeBtwShoot;
+    public float startTimeBtwShoot;
+
 
     protected override void Awake()
     {
-        
+        animator = GetComponent<Animator>();
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
+
+    protected override void Update()
+    {
+        pers = FindObjectOfType<CharSCR>();
+        //if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= 14.0F)
+        //{
+        //    InvokeRepeating("Shoot", rate, rate);
+        //}
+        if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = false;
+        else sprite.flipX = true;
+        IsPlayerNear = false;
+
+        if (timeBtwShoot <= 0)
+        {
+            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= shootdistance)
+            {
+                IsPlayerNear = true;
+                //Shoot();
+                timeBtwShoot = startTimeBtwShoot;
+            }
+            else IsPlayerNear = false;
+        }
+        else
+        {
+            timeBtwShoot -= Time.deltaTime;
+        }
+    }
+
     protected override void Start()
     {
-        InvokeRepeating("Shoot", rate, rate);
+        
+    }
+
+    private bool IsPlayerNear
+    {
+        get { return animator.GetBool("IsPlayerNear"); }
+        set { animator.SetBool("IsPlayerNear", value); }
     }
     public void Shoot()
     {
         pers = FindObjectOfType<CharSCR>();
         Vector3 position = transform.position;
-        if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = true; 
-        else sprite.flipX = false;
+        if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = false; 
+        else sprite.flipX = true;
         position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.1F;
         Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
         newBullet.Parent = gameObject;
-        newBullet.Direction = -newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
+        newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
         newBullet.Color = bulletColor;
     }
 

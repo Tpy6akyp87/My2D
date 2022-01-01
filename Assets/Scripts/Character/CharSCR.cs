@@ -86,6 +86,7 @@ public class CharSCR : Unit
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
+                State = CharState.Shoot;
                 Shoot();
                 timeBtwShoot = startTimeBtwShoot;
                 //Debug.Log(State); 
@@ -127,7 +128,6 @@ public class CharSCR : Unit
         Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
-        State = CharState.Shoot;
     }
     public void Attack()
     {
