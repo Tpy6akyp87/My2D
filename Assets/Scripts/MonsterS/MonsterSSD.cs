@@ -9,7 +9,6 @@ public class MonsterSSD : Monster
     private float speed = 0.5F;
     [SerializeField]
     private float attackdistance;
-    //private Bullet bullet;
     private SpriteRenderer sprite;
     private Vector3 direction;
     private CharSCR pers;
