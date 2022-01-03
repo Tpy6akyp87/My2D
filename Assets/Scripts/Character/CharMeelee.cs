@@ -23,15 +23,11 @@ public class CharMeelee : MonoBehaviour
 
         if (timeBtwAtack <= 0)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetButtonDown("Fire1"))
             {
-                pers.Attack();
-                //anim.SetTrigger("attack");
-                //Debug.Log(" нопка нажалась");
                 OnAttack();
                 timeBtwAtack = startTimeBtwAttack;
             }
-            
         }
         else
         {
@@ -42,6 +38,7 @@ public class CharMeelee : MonoBehaviour
 
     public void OnAttack()
     {
+        //pers.Attack();
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -51,6 +48,6 @@ public class CharMeelee : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+      //  Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 }

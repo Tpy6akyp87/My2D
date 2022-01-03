@@ -11,7 +11,6 @@ public class MovingPlatform : MonoBehaviour
     public void startPositioner()
     {
         startposition = transform.position.x;
-        Debug.Log(startposition);
     }
 
     private void Start()

@@ -27,10 +27,6 @@ public class MonsterShoot : Monster
     protected override void Update()
     {
         pers = FindObjectOfType<CharSCR>();
-        //if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= 14.0F)
-        //{
-        //    InvokeRepeating("Shoot", rate, rate);
-        //}
         if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = false;
         else sprite.flipX = true;
         IsPlayerNear = false;

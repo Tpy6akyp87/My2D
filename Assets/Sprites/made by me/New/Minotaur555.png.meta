@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 180
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1589,6 +1589,7 @@ TextureImporter:
       Minotaur555_60: 1830252513
       Minotaur555_3: 1714958378
       Minotaur555_14: 1046020155
+      Minotaur555_65: 1737123492
       Minotaur555_48: 2013312626
       Minotaur555_28: -1010303907
       Minotaur555_67: 1608596560
@@ -1605,7 +1606,6 @@ TextureImporter:
       Minotaur555_36: 1553981411
       Minotaur555_26: -977137130
       Minotaur555_43: -1043271493
-      Minotaur555_65: 1737123492
       Minotaur555_19: 1319177111
       Minotaur555_7: 1690855601
       Minotaur555_29: 878911405

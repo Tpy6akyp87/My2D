@@ -31,23 +31,24 @@ public class MonsterSSD : Monster
         get { return animator.GetBool("IsPlayerNear"); }
         set { animator.SetBool("IsPlayerNear", value); }
     }
+    private bool playernear
+    {
+        get { return animator.GetBool("playernear"); }
+        set { animator.SetBool("playernear", value); }
+    }
 
     protected override void Update()
     {
-        IsPlayerNear = false;
         pers = FindObjectOfType<CharSCR>();
-        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
-        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.48F, 0, 0);
-        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.48F, 0, 0);
-
         if (timeBtwAtack <= 0)
         {
             if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= attackdistance)
             {
                 IsPlayerNear = true;
+                speed = 0.0F;
                 timeBtwAtack = startTimeBtwAttack;
             }
-            else
+            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > attackdistance)
             {
                 IsPlayerNear = false;
                 Move();

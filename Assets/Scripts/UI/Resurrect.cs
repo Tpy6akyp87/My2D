@@ -22,7 +22,7 @@ public class Resurrect : MonoBehaviour
     {
 
         {
-            character.transform.position = respawnPoint.transform.position;
+            player.transform.position = respawnPoint.transform.position;
             player.Lives = 2;
         }
     }

@@ -19,6 +19,13 @@ public class CharSCR : Unit
     private SpriteRenderer sprite;
     int playerObject, platformObject;
     public bool isFlip = false;
+
+    public Transform attackPos;
+    public LayerMask enemy;
+    public float attackRange;
+
+    private float timeBtwAtack;
+    public float startTimeBtwAttack;
     private float timeBtwShoot;
     public float startTimeBtwShoot;
 
@@ -44,12 +51,11 @@ public class CharSCR : Unit
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet");
     }
-
     private void FixedUpdate()
     {
         CheckGround();
     }
-    private CharState State
+    public CharState State
     {
         get { return (CharState)animator.GetInteger("State"); }
         set { animator.SetInteger("State", (int)value); }
@@ -60,27 +66,25 @@ public class CharSCR : Unit
         State = CharState.Idle;
         if (Input.GetButton("Horizontal")) 
         { 
-            Run(); //Debug.Log(State);
+            Run();
         }
         if (Input.GetButton("Vertical")) 
         { 
-            Climb(); //Debug.Log(State);
+            Climb();
         }
         if (isGrounded && Input.GetButtonDown("Jump")) 
         { 
-            Jump(); //Debug.Log(State);
+            Jump();
         }
         if (rigidbody.velocity.y < 0)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
             State = CharState.Fall;
-            //Debug.Log(State);
         }
         if (rigidbody.velocity.y > 0)
         {
             State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
-            //Debug.Log(State);
         }
         if (timeBtwShoot <= 0)
         {
@@ -89,24 +93,38 @@ public class CharSCR : Unit
                 State = CharState.Shoot;
                 Shoot();
                 timeBtwShoot = startTimeBtwShoot;
-                //Debug.Log(State); 
             }
         }
         else
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        //if (Input.GetButtonDown("Fire1") && !PauseMenu.GameIsPaused) 
-        //{
-        //    Attack(); //Debug.Log(State);
-        //}
-        //if (lives ==0) SceneManager.LoadScene("Menu");// המבאגטעü ‎ךנאם דוילמגונ
+        
+
+        //Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        //if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
+        //if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
+        if (timeBtwAtack <= 0)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                OnAttack();
+                timeBtwAtack = startTimeBtwAttack;
+            }
+        }
+        else
+        {
+            timeBtwAtack -= Time.deltaTime;
+        }
+
 
     }
 
     public void Run()
     {
-        Vector3 direction = transform.right * Input.GetAxis("Horizontal"); 
+        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
+        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
         State = CharState.Run;
@@ -117,9 +135,7 @@ public class CharSCR : Unit
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
         State = CharState.Run;
-       
     }
-
     public void Shoot()
     {
         Vector3 position = transform.position; 
@@ -129,28 +145,23 @@ public class CharSCR : Unit
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
     }
-    public void Attack()
-    {
-        State = CharState.Meelee;
-    }
-
+    //public void Attack()
+    //{
+    //    Debug.Log("זאלך");
+    //    State = CharState.Meelee;
+    //}
     private void Jump()
     {
-        
         rigidbody.velocity = new Vector3(0, jumpForce, 0);
     }
-
     public override void ReceiveDamage()
     {
         Lives--;
-        //rigidbody.AddForce(transform.up * 4.0F, ForceMode2D.Impulse);
         Debug.Log(lives);
         State = CharState.RDamage;
     }
-
     private void CheckGround() 
     {
-        
         isGrounded = rigidbody.velocity.y == 0;
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -161,6 +172,51 @@ public class CharSCR : Unit
     {
         if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = null;
     }
+
+
+
+
+    
+    
+    //public void Update()
+    //{
+        
+    //    Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+    //    if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
+    //    if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
+
+    //    if (timeBtwAtack <= 0)
+    //    {
+    //        if (Input.GetButtonDown("Fire1"))
+    //        {
+    //            OnAttack();
+    //            timeBtwAtack = startTimeBtwAttack;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        timeBtwAtack -= Time.deltaTime;
+    //    }
+    //}
+
+    public void OnAttack()
+    {
+        Debug.Log("זאלך");
+        State = CharState.Meelee;
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<Monster>().ReceiveDamage();
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+
+
+
 
 }
 
