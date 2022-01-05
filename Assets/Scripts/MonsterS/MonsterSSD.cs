@@ -38,6 +38,15 @@ public class MonsterSSD : Monster
 
     protected override void Update()
     {
+        AttackCheck();
+    }
+    protected override void Start()
+    {
+        direction = transform.right;
+    }
+
+    private void AttackCheck() // анимация и таймер между атаками
+    {
         pers = FindObjectOfType<CharSCR>();
         if (timeBtwAtack <= 0)
         {
@@ -58,14 +67,12 @@ public class MonsterSSD : Monster
             timeBtwAtack -= Time.deltaTime;
         }
     }
-    protected override void Start()
-    {
-        direction = transform.right;
-    }
     
     
     private void Move()
     {
+        //ускорение к игроку
+
         pers = FindObjectOfType<CharSCR>();
         if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
         {
