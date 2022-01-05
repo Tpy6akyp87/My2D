@@ -79,11 +79,11 @@ public class CharSCR : Unit
         if (rigidbody.velocity.y < 0)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
-            State = CharState.Fall;
+            //State = CharState.Fall;
         }
         if (rigidbody.velocity.y > 0)
         {
-            State = CharState.Jump;
+            //State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         if (timeBtwShoot <= 0)
@@ -99,16 +99,13 @@ public class CharSCR : Unit
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        
-
-        //Vector3 direction = transform.right * Input.GetAxis("Horizontal");
-        //if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
-        //if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
         if (timeBtwAtack <= 0)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                OnAttack();
+                Debug.Log("זאלך");
+                State = CharState.Meelee;
+                //OnAttack();
                 timeBtwAtack = startTimeBtwAttack;
             }
         }
@@ -156,9 +153,9 @@ public class CharSCR : Unit
     }
     public override void ReceiveDamage()
     {
+        State = CharState.RDamage;
         Lives--;
         Debug.Log(lives);
-        State = CharState.RDamage;
     }
     private void CheckGround() 
     {
@@ -172,37 +169,8 @@ public class CharSCR : Unit
     {
         if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = null;
     }
-
-
-
-
-    
-    
-    //public void Update()
-    //{
-        
-    //    Vector3 direction = transform.right * Input.GetAxis("Horizontal");
-    //    if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
-    //    if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
-
-    //    if (timeBtwAtack <= 0)
-    //    {
-    //        if (Input.GetButtonDown("Fire1"))
-    //        {
-    //            OnAttack();
-    //            timeBtwAtack = startTimeBtwAttack;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        timeBtwAtack -= Time.deltaTime;
-    //    }
-    //}
-
     public void OnAttack()
     {
-        Debug.Log("זאלך");
-        State = CharState.Meelee;
         Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
         for (int i = 0; i < enemies.Length; i++)
         {
