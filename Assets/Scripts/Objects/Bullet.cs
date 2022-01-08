@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collider)
     {
         Unit unit = collider.GetComponent<Unit>();
-        if (unit && unit.gameObject != parent)
+        if (unit && unit.gameObject != parent && unit.tag != "Mim")
         {
             Destroy(gameObject);
             unit.ReceiveDamage();

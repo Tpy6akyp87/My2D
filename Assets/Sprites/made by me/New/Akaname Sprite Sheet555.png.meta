@@ -1,0 +1,740 @@
+fileFormatVersion: 2
+guid: feb1964e9fbc4814a8c8d16a46476f57
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 90
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 533
+        width: 117
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ce22b1b816d1443be6b891dd8cba6e
+      internalID: -1798177378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_1
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 533
+        width: 116
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 394a74268a578ea46a9e967452cfaebd
+      internalID: -1369025580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_2
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 533
+        width: 116
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16e2467dff95b164396930c98df6c3b4
+      internalID: 682044669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_3
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 533
+        width: 122
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bc795c052e5edd44ab51ae2cf77cad4
+      internalID: 2103267048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_4
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 533
+        width: 122
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab764d24d805144aab7909b90f4fa91
+      internalID: -206814696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 355
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc4cadc9434b814c83f34e7d45d354a
+      internalID: 1321872349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_6
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 366
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed5bf52e0f05f484594117dca960a801
+      internalID: 373038773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_7
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 372
+        width: 99
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46f8bb7e08b3db04f9d875c16b1bbbac
+      internalID: 1636338025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_8
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 366
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 636456ea74df34f4eb04488aca03ee12
+      internalID: -359467277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_9
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 355
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c819ec9ba4742eb4b87cf73a06e7bded
+      internalID: -560138959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_10
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 366
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e162d9928929f438910dc38b82005b
+      internalID: 679914484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_11
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 372
+        width: 100
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0329bccc22f2184b8acbfc2f8c924ba
+      internalID: 1421523667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_12
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 366
+        width: 99
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b35898d602d8dd43a42bac7eaf1c3cd
+      internalID: 1776245777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 178
+        width: 117
+        height: 77
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49288e6eb31027488a39606e3815b00
+      internalID: 2147075828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_14
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 178
+        width: 128
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cebe0c031bc0f94d80b54134eab6d40
+      internalID: -823031748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_15
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 178
+        width: 138
+        height: 77
+      alignment: 9
+      pivot: {x: 0.46376812, y: 0.46753246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9290947639908c4d93cb53004186f20
+      internalID: 1201117109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_16
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 179
+        width: 139
+        height: 77
+      alignment: 9
+      pivot: {x: 0.46043167, y: 0.46753246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f75ef4b42d29cb745a4e3dffaf956ade
+      internalID: -1032372974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_17
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 178
+        width: 133
+        height: 133
+      alignment: 9
+      pivot: {x: 0.48120302, y: 0.2706767}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e697fd3c98e49f740b8a5059323032b5
+      internalID: -1141862684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_18
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 178
+        width: 134
+        height: 105
+      alignment: 9
+      pivot: {x: 0.47761193, y: 0.34285715}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a583e601d6b2ec6458ef8c01a97a60e3
+      internalID: -420888092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_19
+      rect:
+        serializedVersion: 2
+        x: 1066
+        y: 178
+        width: 139
+        height: 77
+      alignment: 9
+      pivot: {x: 0.46043167, y: 0.46753246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edd0e01af9339374dbba31233a4b5f2d
+      internalID: -727210117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_20
+      rect:
+        serializedVersion: 2
+        x: 1244
+        y: 178
+        width: 133
+        height: 77
+      alignment: 9
+      pivot: {x: 0.48120302, y: 0.46753246}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d016158603ddb0041aa7d3f51da755f8
+      internalID: 1332828613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 117
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7fa818687c004641972e8f0e27da8f9
+      internalID: -547847905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_22
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 0
+        width: 117
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd80842ba825b24d90d343cc55b3aa9
+      internalID: -1338573769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_23
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 0
+        width: 106
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80b2e64ec9e1bb445a6409ffa7fed13e
+      internalID: -545535177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_24
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 0
+        width: 116
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7046a480c09b86945b0c23e91284cfac
+      internalID: -1739388825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_25
+      rect:
+        serializedVersion: 2
+        x: 727
+        y: 0
+        width: 117
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 733cda0040071754aadb0c5f4b4e0a46
+      internalID: -355939807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Akaname Sprite Sheet555_26
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 0
+        width: 122
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08d44d720014e5843ab4ec502bb045e6
+      internalID: 1296493301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Akaname Sprite Sheet555_15: 1201117109
+      Akaname Sprite Sheet555_14: -823031748
+      Akaname Sprite Sheet555_10: 679914484
+      Akaname Sprite Sheet555_16: -1032372974
+      Akaname Sprite Sheet555_17: -1141862684
+      Akaname Sprite Sheet555_21: -547847905
+      Akaname Sprite Sheet555_7: 1636338025
+      Akaname Sprite Sheet555_20: 1332828613
+      Akaname Sprite Sheet555_3: 2103267048
+      Akaname Sprite Sheet555_8: -359467277
+      Akaname Sprite Sheet555_2: 682044669
+      Akaname Sprite Sheet555_23: -545535177
+      Akaname Sprite Sheet555_0: -1798177378
+      Akaname Sprite Sheet555_1: -1369025580
+      Akaname Sprite Sheet555_19: -727210117
+      Akaname Sprite Sheet555_5: 1321872349
+      Akaname Sprite Sheet555_22: -1338573769
+      Akaname Sprite Sheet555_4: -206814696
+      Akaname Sprite Sheet555_18: -420888092
+      Akaname Sprite Sheet555_11: 1421523667
+      Akaname Sprite Sheet555_9: -560138959
+      Akaname Sprite Sheet555_26: 1296493301
+      Akaname Sprite Sheet555_24: -1739388825
+      Akaname Sprite Sheet555_13: 2147075828
+      Akaname Sprite Sheet555_12: 1776245777
+      Akaname Sprite Sheet555_25: -355939807
+      Akaname Sprite Sheet555_6: 373038773
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

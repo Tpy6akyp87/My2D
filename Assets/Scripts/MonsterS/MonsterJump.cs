@@ -16,6 +16,7 @@ public class MonsterJump : Monster
     public LayerMask enemy;
     public float attackRange;
     private float timeBtwAtack;
+    private float timeBtwJump;
     public float startTimeBtwAttack;
     private Animator animator;
     public float jumpradius;
@@ -74,8 +75,18 @@ public class MonsterJump : Monster
     }
     private void JumpCheck()
     {
-        if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= (jumpradius+0.1F) && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) >= (jumpradius - 0.1F))
-            rigidbody.velocity = new Vector3(0, jumpforce, 0);
+        if (timeBtwJump <= 0)
+        {
+            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= (jumpradius + 0.1F) && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) >= (jumpradius - 0.1F))
+            {
+                rigidbody.velocity = direction + new Vector3(0, jumpforce, 0);
+                timeBtwJump = 3.0F;
+            }
+        }
+        else
+        {
+            timeBtwJump -= Time.deltaTime;
+        }
     }
 
 
@@ -98,7 +109,7 @@ public class MonsterJump : Monster
 
         //разворот у преграды
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.5F) + transform.right * direction.x * 0.6F, 0.05F);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (0.5F) + transform.right * direction.x * 0.6F, 0.05F);
         if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<CharSCR>())) direction *= -1.0F;
         sprite.flipX = direction.x < 0;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
