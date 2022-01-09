@@ -596,7 +596,7 @@ TextureImporter:
         x: 183
         y: 0
         width: 117
-        height: 72
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -617,7 +617,7 @@ TextureImporter:
         x: 372
         y: 0
         width: 106
-        height: 61
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -638,7 +638,7 @@ TextureImporter:
         x: 550
         y: 0
         width: 116
-        height: 56
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -656,10 +656,10 @@ TextureImporter:
       name: Akaname Sprite Sheet555_25
       rect:
         serializedVersion: 2
-        x: 727
+        x: 726
         y: 0
         width: 117
-        height: 56
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -680,7 +680,7 @@ TextureImporter:
         x: 905
         y: 0
         width: 122
-        height: 56
+        height: 78
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

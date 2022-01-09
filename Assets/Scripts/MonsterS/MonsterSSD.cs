@@ -30,11 +30,11 @@ public class MonsterSSD : Monster
         get { return animator.GetBool("IsPlayerNear"); }
         set { animator.SetBool("IsPlayerNear", value); }
     }
-    private bool playernear
-    {
-        get { return animator.GetBool("playernear"); }
-        set { animator.SetBool("playernear", value); }
-    }
+    //private bool playernear
+    //{
+    //    get { return animator.GetBool("playernear"); }
+    //    set { animator.SetBool("playernear", value); }
+    //}
 
     protected override void Update()
     {
@@ -113,5 +113,17 @@ public class MonsterSSD : Monster
         {
             Debug.Log("SSDMonsterDamage");
         }
+    }
+    public int State
+    {
+        get { return animator.GetInteger("State"); }
+        set { animator.SetInteger("State", value); }
+    }
+    public override void ReceiveDamage()
+    {
+        Debug.Log("смерть пришла");
+        State = 1;
+        speed = 0.0F;
+        // Invoke("Die",0.4F);
     }
 }

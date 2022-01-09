@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
     public virtual void ReceiveDamage()
     {
         Die();
+        Debug.Log("смерть тут пришла");
     }
 
     public virtual void Die()

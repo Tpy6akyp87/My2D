@@ -57,6 +57,11 @@ public class MonsterShoot : Monster
         get { return animator.GetBool("IsPlayerNear"); }
         set { animator.SetBool("IsPlayerNear", value); }
     }
+    public int State
+    {
+        get { return animator.GetInteger("State"); }
+        set { animator.SetInteger("State", (int)value); }
+    }
     public void Shoot()
     {
         pers = FindObjectOfType<CharSCR>();
@@ -68,6 +73,13 @@ public class MonsterShoot : Monster
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
         newBullet.Color = bulletColor;
+    }
+
+    public override void ReceiveDamage()
+    {
+        Debug.Log("смерть пришла");
+        State = 0;
+       // Invoke("Die",0.4F);
     }
 
 

@@ -17,12 +17,14 @@ public class MonsterHight : Monster
     private Transform target;
     private Vector3 direction;
     private Vector3 directionV;
+    private Animator animator;
     [SerializeField]
     private float shootdistance;
 
 
     protected override void Awake()
     {
+        animator = GetComponent<Animator>();
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
     }
@@ -35,6 +37,7 @@ public class MonsterHight : Monster
         InvokeRepeating("ChangeDirectionV", rate * 0.7F, rate * 0.2F);
         direction = transform.right;
         directionV = transform.up;
+        State = 0;
     }
     protected override void Update()
     {
@@ -83,5 +86,17 @@ public class MonsterHight : Monster
             unit.ReceiveDamage();
             Debug.Log("ShootMonsterDamage");
         }
+    }
+    public int State
+    {
+        get { return animator.GetInteger("State"); }
+        set { animator.SetInteger("State", value); }
+    }
+    public override void ReceiveDamage()
+    {
+        Debug.Log("смерть пришла");
+        State = 1;
+        speed = 0.0F;
+        // Invoke("Die",0.4F);
     }
 }
