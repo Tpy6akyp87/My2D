@@ -12,7 +12,7 @@ public class MonsterShoot : Monster
     private SpriteRenderer sprite;
     private CharSCR pers;
     private Animator animator;
-    private float timeBtwShoot;
+    public float timeBtwShoot;
     public float startTimeBtwShoot;
 
 
@@ -60,7 +60,7 @@ public class MonsterShoot : Monster
     public int State
     {
         get { return animator.GetInteger("State"); }
-        set { animator.SetInteger("State", (int)value); }
+        set { animator.SetInteger("State", value); }
     }
     public void Shoot()
     {
