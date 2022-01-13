@@ -74,7 +74,7 @@ public class MonsterShoot : Monster
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
         newBullet.Color = bulletColor;
     }
-
+    //313621321
     public override void ReceiveDamage()
     {
         Debug.Log("смерть пришла");
