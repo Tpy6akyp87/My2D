@@ -3,8 +3,9 @@
     "",
     "\\Assets",
     "\\Assets\\Scripts",
-    "\\Assets\\Scripts\\MonsterS"
+    "\\Assets\\Scripts\\MonsterS",
+    "\\Assets\\Scripts\\MonsterS\\MonsterMim"
   ],
-  "SelectedNode": "\\Assets\\Scripts\\MonsterS\\MonsterShoot.cs",
+  "SelectedNode": "\\Assets\\Scripts\\MonsterS\\MonsterHight.cs",
   "PreviewInSolutionExplorer": false
 }
