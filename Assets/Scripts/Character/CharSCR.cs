@@ -9,7 +9,7 @@ public class CharSCR : Unit
     private int lives = 5;
     private HealthBar healthBar;
     [SerializeField]
-    private float speed = 5.0F;
+    public float speed = 5.0F;
     [SerializeField]
     public float jumpForce = 13.0F; //всегда менять и у лестницы в скрипте
     private bool isGrounded = false;
@@ -72,6 +72,10 @@ public class CharSCR : Unit
         { 
             Climb();
         }
+        if (Input.GetButtonDown("Fire1"))
+        {
+            ReceiveDamage();
+        }
         if (isGrounded && Input.GetButtonDown("Jump")) 
         { 
             Jump();
@@ -86,12 +90,13 @@ public class CharSCR : Unit
             //State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
+        //Debug.Log(timeBtwShoot);
         if (timeBtwShoot <= 0)
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
                 State = CharState.Shoot;
-                Shoot();
+                //Shoot();
                 timeBtwShoot = startTimeBtwShoot;
             }
         }
@@ -101,13 +106,13 @@ public class CharSCR : Unit
         }
         if (timeBtwAtack <= 0)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                Debug.Log("жамк");
-                State = CharState.Meelee;
-                //OnAttack();
-                timeBtwAtack = startTimeBtwAttack;
-            }
+            //if (Input.GetButtonDown("Fire1"))
+            //{
+            //    Debug.Log("жамк");
+            //    State = CharState.Meelee;
+            //    //OnAttack();
+            //    timeBtwAtack = startTimeBtwAttack;
+            //}
         }
         else
         {
@@ -153,9 +158,18 @@ public class CharSCR : Unit
     }
     public override void ReceiveDamage()
     {
-        State = CharState.RDamage;
         Lives--;
-        Debug.Log(lives);
+        if (Lives <= 0)
+        {
+            State = CharState.Die;
+            speed = 0.0F;
+        }
+        else
+        {
+            State = CharState.RDamage;
+            
+            Debug.Log(lives);
+        }
     }
     private void CheckGround() 
     {
@@ -195,5 +209,7 @@ public enum CharState{
     Fall,
     Meelee,
     RDamage,
-    Shoot
+    Shoot,
+    Die,
+    Res
 }

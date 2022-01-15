@@ -15,7 +15,7 @@ public class Resurrect : MonoBehaviour
         player = FindObjectOfType<CharSCR>();
         if (player.Lives < 1)
         {
-            Resurrection();
+            Invoke("Resurrection", 2.0F);
         }
     }
     public void Resurrection()
@@ -24,6 +24,8 @@ public class Resurrect : MonoBehaviour
         {
             player.transform.position = respawnPoint.transform.position;
             player.Lives = 2;
+            player.State = CharState.Res;
+            player.speed = 5.0F;
         }
     }
     //public void OnTriggerEnter2D(Collider2D collider)

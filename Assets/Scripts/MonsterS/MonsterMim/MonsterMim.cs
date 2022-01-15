@@ -45,6 +45,8 @@ public class MonsterMim : Monster
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack)
         {
             player.ReceiveDamage();
+            player.State = CharState.RDamage;
+            Debug.Log("Получил урон - вызвал метод player.ReceiveDamage();");
         }
     }
     public int State
@@ -57,6 +59,5 @@ public class MonsterMim : Monster
         Debug.Log("смерть пришла");
         State = 1;
         speed = 0.0F;
-        // Invoke("Die",0.4F);
     }
 }
