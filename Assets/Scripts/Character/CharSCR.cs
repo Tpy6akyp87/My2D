@@ -15,7 +15,7 @@ public class CharSCR : Unit
     private bool isGrounded = false;
     private Bullet bullet;
     new public Rigidbody2D rigidbody;
-    private Animator animator;
+    public Animator animator;
     private SpriteRenderer sprite;
     int playerObject, platformObject;
     public bool isFlip = false;
@@ -28,6 +28,8 @@ public class CharSCR : Unit
     public float startTimeBtwAttack;
     private float timeBtwShoot;
     public float startTimeBtwShoot;
+
+    private float takeDamage;
 
     public int Lives
     {
@@ -53,6 +55,7 @@ public class CharSCR : Unit
     }
     private void FixedUpdate()
     {
+        takeDamage = 0;
         CheckGround();
     }
     public CharState State
@@ -64,19 +67,25 @@ public class CharSCR : Unit
     private void Update()
     {
         State = CharState.Idle;
-        if (Input.GetButton("Horizontal")) 
+        if (Input.GetButton("Horizontal")) //движение
         { 
             Run();
         }
-        if (Input.GetButton("Vertical")) 
+        if (Input.GetButton("Vertical")) //карабкаться
         { 
             Climb();
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (takeDamage == 1) // если получил урон
         {
-            ReceiveDamage();
+            State = CharState.RDamage; 
         }
-        if (isGrounded && Input.GetButtonDown("Jump")) 
+        if (takeDamage == 2) //если умер
+        {
+            State = CharState.Die;
+        }
+
+
+        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
         { 
             Jump();
         }
@@ -106,13 +115,13 @@ public class CharSCR : Unit
         }
         if (timeBtwAtack <= 0)
         {
-            //if (Input.GetButtonDown("Fire1"))
-            //{
-            //    Debug.Log("жамк");
-            //    State = CharState.Meelee;
-            //    //OnAttack();
-            //    timeBtwAtack = startTimeBtwAttack;
-            //}
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Debug.Log("жамк");
+                State = CharState.Meelee;
+                //OnAttack();
+                timeBtwAtack = startTimeBtwAttack;
+            }
         }
         else
         {
@@ -161,13 +170,13 @@ public class CharSCR : Unit
         Lives--;
         if (Lives <= 0)
         {
+            takeDamage = 2;
             State = CharState.Die;
             speed = 0.0F;
         }
         else
         {
-            State = CharState.RDamage;
-            
+            takeDamage = 1;
             Debug.Log(lives);
         }
     }

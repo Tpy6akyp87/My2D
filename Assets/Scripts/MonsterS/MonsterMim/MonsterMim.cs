@@ -9,7 +9,7 @@ public class MonsterMim : Monster
     public float speed;
     private SpriteRenderer sprite;
     private Animator animator;
-    private CharSCR player;
+    public CharSCR player;
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
@@ -25,7 +25,7 @@ public class MonsterMim : Monster
         set { animator.SetBool("IsPlayerNear", value); }
     }
 
-    private void TothePlayer()
+    public void TothePlayer()
     {
         player = FindObjectOfType<CharSCR>();
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceToPlayer && (gameObject.transform.position - player.transform.position).magnitude > distanceAttack)
@@ -39,14 +39,14 @@ public class MonsterMim : Monster
             IsPlayerNear = true;
         }
     }
-    private void Attack()
+    public void Attack()
     {
         player = FindObjectOfType<CharSCR>();
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack)
         {
             player.ReceiveDamage();
             player.State = CharState.RDamage;
-            Debug.Log("Получил урон - вызвал метод player.ReceiveDamage();");
+            Debug.Log("персонаж получил урон - вызван метод player.ReceiveDamage();");
         }
     }
     public int State
