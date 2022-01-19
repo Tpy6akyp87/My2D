@@ -30,6 +30,7 @@ public class CharSCR : Unit
     public float startTimeBtwShoot;
 
     private float takeDamage;
+    public bool dieTrigger;
 
     public int Lives
     {
@@ -66,6 +67,7 @@ public class CharSCR : Unit
 
     private void Update()
     {
+        dieTrigger = false;
         State = CharState.Idle;
         if (Input.GetButton("Horizontal")) //движение
         { 
@@ -82,9 +84,10 @@ public class CharSCR : Unit
         if (takeDamage == 2) //если умер
         {
             State = CharState.Die;
+            Debug.Log("Помер");
+            Invoke("Ressurrect", 5.0F);
+            dieTrigger = true;
         }
-
-
         if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
         { 
             Jump();
@@ -113,13 +116,11 @@ public class CharSCR : Unit
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        if (timeBtwAtack <= 0)
+        if (timeBtwAtack <= 0)// удар
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("жамк");
                 State = CharState.Meelee;
-                //OnAttack();
                 timeBtwAtack = startTimeBtwAttack;
             }
         }
@@ -130,12 +131,19 @@ public class CharSCR : Unit
 
 
     }
+    public void Ressurrect()
+    {
+        State = CharState.Idle;
+        Lives = 2;
+        speed = 5.0F;
+        Debug.Log("я воскрес");
+    }
 
     public void Run()
     {
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
-        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.88F, -0.36F, 0);
-        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.88F, -0.36F, 0);
+        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.33F, -0.36F, 0);
+        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.33F, -0.36F, 0);
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
         State = CharState.Run;
@@ -156,11 +164,6 @@ public class CharSCR : Unit
         newBullet.Parent = gameObject;
         newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
     }
-    //public void Attack()
-    //{
-    //    Debug.Log("жамк");
-    //    State = CharState.Meelee;
-    //}
     private void Jump()
     {
         rigidbody.velocity = new Vector3(0, jumpForce, 0);
@@ -168,13 +171,12 @@ public class CharSCR : Unit
     public override void ReceiveDamage()
     {
         Lives--;
-        if (Lives <= 0)
+        if (Lives == 0)
         {
             takeDamage = 2;
-            State = CharState.Die;
             speed = 0.0F;
         }
-        else
+        if (Lives>0)
         {
             takeDamage = 1;
             Debug.Log(lives);
@@ -203,8 +205,9 @@ public class CharSCR : Unit
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(attackPos.position, attackRange);
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
+    
 
 
 

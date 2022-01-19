@@ -13,28 +13,14 @@ public class Resurrect : MonoBehaviour
     public void Update()
     {
         player = FindObjectOfType<CharSCR>();
-        if (player.Lives < 1)
+        if (player.dieTrigger == true)
         {
-            Invoke("Resurrection", 2.0F);
+            Invoke("Resurrection", 5.0F);
         }
     }
     public void Resurrection()
     {
-
-        {
-            player.transform.position = respawnPoint.transform.position;
-            player.Lives = 2;
-            player.State = CharState.Res;
-            player.speed = 5.0F;
-        }
+        Debug.Log("Респавн");
+        player.transform.position = respawnPoint.transform.position;
     }
-    //public void OnTriggerEnter2D(Collider2D collider)
-    //{
-    //    Unit unit = collider.GetComponent<Unit>();
-    //    if (unit && unit is CharSCR)
-    //    {
-    //        unit.ReceiveDamage();
-    //        character.transform.position = respawnPoint.transform.position;
-    //    }
-    //}
 }
