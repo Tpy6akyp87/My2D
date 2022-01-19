@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonsterShoot : Monster
 {
     [SerializeField]
-    private float shootdistance;
+    private float shootdistance = 10.5F;
     private Bullet bullet;
     [SerializeField]
     private Color bulletColor = Color.white;
