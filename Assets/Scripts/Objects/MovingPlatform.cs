@@ -5,6 +5,7 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
     [SerializeField]
+
     private float speed = 2.0F;
     private float startposition;
     private Vector3 direction;
@@ -17,6 +18,13 @@ public class MovingPlatform : MonoBehaviour
     {
         startPositioner();
         direction = transform.right;
+        Vector3 startposition = gameObject.transform.position;
+        InvokeRepeating("ChangeDirection", speed, speed);
+        direction = transform.right;
+    }
+    private void ChangeDirection()
+    {
+        direction *= -1.0F;
     }
 
     private void Update()
@@ -25,7 +33,6 @@ public class MovingPlatform : MonoBehaviour
     }
     private void Move ()
     {
-    if (Mathf.Abs(transform.position.x - startposition)>2.0F) direction *= -1.0F;
-    transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
     }
 }
