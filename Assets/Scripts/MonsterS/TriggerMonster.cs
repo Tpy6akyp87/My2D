@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class TriggerMonster : MonoBehaviour
 {
-    private MonsterShoot addMonster;
+    private GameObject addableMonster;
+    //private MonsterShoot addMonster;
     public Transform summPosition;
     private void Awake()
     {
-        addMonster = Resources.Load<MonsterShoot>("MonsterShoot");
+        string monstername = addableMonster.name.ToString();
+        addableMonster = Resources.Load<GameObject>(monstername);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            MonsterShoot newMonsterShoot = Instantiate(addMonster, summPosition.position, addMonster.transform.rotation) as MonsterShoot;
+            GameObject gameObject = Instantiate(addableMonster, summPosition.position, addableMonster.transform.rotation) as GameObject;
         }
     }
 }
