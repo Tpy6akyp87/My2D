@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class CharSCR : Unit
 {
     [SerializeField]
+    private int patrons = 6;
     private int lives = 5;
     private HealthBar healthBar;
+    private PatronBar patronBar;
     [SerializeField]
     public float speed = 5.0F;
     [SerializeField]
@@ -32,6 +34,15 @@ public class CharSCR : Unit
     private float takeDamage;
     public bool dieTrigger;
 
+    public int Patrons
+    {
+        get { return patrons; }
+        set
+        {
+            if (value <= 6) patrons = value;
+            patronBar.Refresh();
+        }
+    }
     public int Lives
     {
         get { return lives; }
@@ -43,16 +54,18 @@ public class CharSCR : Unit
     }
     private void Start()
     {
+        Patrons = 6;
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
     }
     public void Awake()
     {
+        patronBar = FindObjectOfType<PatronBar>();
         healthBar = FindObjectOfType<HealthBar>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
-        bullet = Resources.Load<Bullet>("Bullet");
+        bullet = Resources.Load<Bullet>("Bullet1");
     }
     private void FixedUpdate()
     {
@@ -103,7 +116,7 @@ public class CharSCR : Unit
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         //Debug.Log(timeBtwShoot);
-        if (timeBtwShoot <= 0)
+        if (timeBtwShoot <= 0 && Patrons > 0)
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
@@ -135,6 +148,7 @@ public class CharSCR : Unit
     {
         State = CharState.Idle;
         Lives = 2;
+        Patrons = 3;
         speed = 5.0F;
         Debug.Log("я воскрес");
     }
@@ -157,12 +171,18 @@ public class CharSCR : Unit
     }
     public void Shoot()
     {
-        Vector3 position = transform.position; 
-        position.y += -0.5F;
-        position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.9F;
-        Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
-        newBullet.Parent = gameObject;
-        newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
+        if (Patrons > 0)
+        {
+            Vector3 position = transform.position;
+            position.y += -0.3F + 0.132F - 0.07F;
+            position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.9F;
+            Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
+            newBullet.Parent = gameObject;
+            newBullet.Direction = newBullet.transform.right * (sprite.flipX ? -1.0F : 1.0F);
+            Patrons--;
+            patronBar.Refresh();
+        }
+        Debug.Log(patrons);
     }
     private void Jump()
     {

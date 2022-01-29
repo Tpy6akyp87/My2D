@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class DamageZone : MonoBehaviour
 {
-   
+    public int damage = 1 ;  
     private void OnTriggerEnter2D(Collider2D collider)
     {
        
-        Unit unit = collider.GetComponent<Unit>();
+        CharSCR unit = collider.GetComponent<CharSCR>();
         if (unit)
         {
-            unit.ReceiveDamage();
+            for (int i = damage; i > 0; i--)
+            {
+                unit.ReceiveDamage(); 
+
+
+            }
            
         }
     }
