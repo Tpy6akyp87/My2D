@@ -69,7 +69,7 @@ public class CharSCR : Unit
     }
     private void FixedUpdate()
     {
-        takeDamage = 0;
+        
         CheckGround();
     }
     public CharState State
@@ -92,7 +92,8 @@ public class CharSCR : Unit
         }
         if (takeDamage == 1) // если получил урон
         {
-            State = CharState.RDamage; 
+            State = CharState.RDamage;
+            takeDamage = 0;
         }
         if (takeDamage == 2) //если умер
         {
@@ -100,6 +101,7 @@ public class CharSCR : Unit
             Debug.Log("Помер");
             Invoke("Ressurrect", 5.0F);
             dieTrigger = true;
+            takeDamage = 0;
         }
         if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
         { 
@@ -227,11 +229,6 @@ public class CharSCR : Unit
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
-    
-
-
-
-
 }
 
 public enum CharState{
