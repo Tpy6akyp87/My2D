@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MonsterJump : Monster
 {
+    private GameObject blood;
     [SerializeField]
     private float speed = 0.5F;
     [SerializeField]
@@ -29,6 +30,7 @@ public class MonsterJump : Monster
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
+        blood = Resources.Load<GameObject>("BloodDamage");
     }
     private bool IsPlayerNear
     {
@@ -145,6 +147,9 @@ public class MonsterJump : Monster
         Debug.Log("смерть пришла");
         State = 1;
         speed = 0.0F;
+        Vector3 position = transform.position;
+        GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
+        Destroy(newBlood, 1.0F);
         // Invoke("Die",0.4F);
     }
 }

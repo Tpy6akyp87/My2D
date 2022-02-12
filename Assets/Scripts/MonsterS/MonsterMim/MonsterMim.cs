@@ -10,10 +10,12 @@ public class MonsterMim : Monster
     private SpriteRenderer sprite;
     private Animator animator;
     public CharSCR player;
+    private GameObject blood;
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        blood = Resources.Load<GameObject>("BloodDamage");
     }
     protected override void Update()
     {
@@ -59,5 +61,7 @@ public class MonsterMim : Monster
         Debug.Log("смерть пришла");
         State = 1;
         speed = 0.0F;
+        Vector3 position = transform.position;
+        GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
     }
 }

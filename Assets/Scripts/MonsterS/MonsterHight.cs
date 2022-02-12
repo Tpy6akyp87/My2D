@@ -5,6 +5,7 @@ using System.Linq;
 
 public class MonsterHight : Monster
 {
+    private GameObject blood;
     [SerializeField]
     private float rate = 2.0F;
     private float speed = 2.0F;
@@ -27,6 +28,7 @@ public class MonsterHight : Monster
         animator = GetComponent<Animator>();
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
+        blood = Resources.Load<GameObject>("BloodDamage");
     }
 
     protected override void Start()
@@ -98,6 +100,9 @@ public class MonsterHight : Monster
         Debug.Log("смерть пришла");
         State = 1;
         speed = 0.0F;
+        Vector3 position = transform.position;
+        GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
+        Destroy(newBlood, 1.0F);
         // Invoke("Die",0.4F);
     }
 }

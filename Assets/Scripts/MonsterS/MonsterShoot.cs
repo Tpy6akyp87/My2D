@@ -7,6 +7,7 @@ public class MonsterShoot : Monster
     [SerializeField]
     private float shootdistance = 10.5F;
     private Bullet bullet;
+    private GameObject blood;
     [SerializeField]
     private Color bulletColor = Color.white;
     private SpriteRenderer sprite;
@@ -21,6 +22,7 @@ public class MonsterShoot : Monster
         animator = GetComponent<Animator>();
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
+        blood = Resources.Load<GameObject>("BloodDamage");
     }
 
 
@@ -79,7 +81,10 @@ public class MonsterShoot : Monster
     {
         Debug.Log("смерть пришла");
         State = 0;
-       // Invoke("Die",0.4F);
+        Vector3 position = transform.position;
+        GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
+        Destroy(newBlood, 1.0F);
+        // Invoke("Die",0.4F);
     }
 
 
