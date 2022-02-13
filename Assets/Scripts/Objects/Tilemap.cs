@@ -11,7 +11,6 @@ public class Tilemap : MonoBehaviour
         if (bullet)
         {
             bullet.DestroyBullet();
-            
         }
     }
 }
