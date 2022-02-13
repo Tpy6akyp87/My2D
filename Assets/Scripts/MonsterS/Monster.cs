@@ -11,11 +11,11 @@ public class Monster : Unit
     protected virtual void OnTriggerEnter2D(Collider2D collider)
     {
        
-        Unit unit = collider.GetComponent<Unit>();
-        if (unit && unit is CharSCR)
-        {
-            unit.ReceiveDamage();
-            Debug.Log("MonsterDamage");
-        }
+        //Unit unit = collider.GetComponent<Unit>();
+        //if (unit && unit is CharSCR)
+        //{
+        //    unit.ReceiveDamage();
+        //    Debug.Log("MonsterDamage");
+        //}
     }
 }

@@ -184,7 +184,7 @@ public class CharSCR : Unit
             Patrons--;
             patronBar.Refresh();
         }
-        Debug.Log(patrons);
+        Debug.Log("Осталось" + patrons + "патронов");
     }
     private void Jump()
     {
