@@ -8,8 +8,10 @@ public class CharSCR : Unit
     [SerializeField]
     private int patrons = 6;
     private int lives = 5;
+    private int barrels = 0;
     private HealthBar healthBar;
     private PatronBar patronBar;
+    private BarrelPanel barrelPanel;
     [SerializeField]
     public float speed = 5.0F;
     [SerializeField]
@@ -34,6 +36,15 @@ public class CharSCR : Unit
     private float takeDamage;
     public bool dieTrigger;
 
+    public int Barrels
+    {
+        get { return barrels; }
+        set
+        {
+            if (value <= 3) barrels = value;
+            barrelPanel.Refresh();
+        }
+    }
     public int Patrons
     {
         get { return patrons; }
@@ -61,6 +72,7 @@ public class CharSCR : Unit
     public void Awake()
     {
         patronBar = FindObjectOfType<PatronBar>();
+        barrelPanel = FindObjectOfType<BarrelPanel>();
         healthBar = FindObjectOfType<HealthBar>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -82,11 +94,11 @@ public class CharSCR : Unit
     {
         dieTrigger = false;
         State = CharState.Idle;
-        if (Input.GetButton("Horizontal")) //движение
+        if (Input.GetButton("Horizontal") && takeDamage != 2) //движение
         { 
             Run();
         }
-        if (Input.GetButton("Vertical")) //карабкаться
+        if (Input.GetButton("Vertical") && takeDamage != 2) //карабкаться
         { 
             Climb();
         }
@@ -101,24 +113,23 @@ public class CharSCR : Unit
             Debug.Log("Помер");
             Invoke("Ressurrect", 5.0F);
             dieTrigger = true;
-            takeDamage = 0;
         }
         if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
         { 
             Jump();
         }
-        if (rigidbody.velocity.y < 0)
+        if (rigidbody.velocity.y < 0 && takeDamage != 2)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
             //State = CharState.Fall;
         }
-        if (rigidbody.velocity.y > 0)
+        if (rigidbody.velocity.y > 0 && takeDamage != 2)
         {
             //State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         //Debug.Log(timeBtwShoot);
-        if (timeBtwShoot <= 0 && Patrons > 0)
+        if (timeBtwShoot <= 0 && Patrons > 0 && takeDamage != 2)
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
@@ -131,7 +142,7 @@ public class CharSCR : Unit
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        if (timeBtwAtack <= 0)// удар
+        if (timeBtwAtack <= 0 && takeDamage != 2)// удар
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -153,6 +164,7 @@ public class CharSCR : Unit
         Patrons = 3;
         speed = 5.0F;
         Debug.Log("я воскрес");
+        takeDamage = 0;
     }
 
     public void Run()
