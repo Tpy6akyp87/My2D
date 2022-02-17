@@ -8,23 +8,37 @@ public class Dialog : MonoBehaviour
     public GameObject panelDialog;
     public GameObject thoseWhoSay;
     public Text textCS;
+    public string textMessage;
     public string[] message;
     public bool dialogStart = false;
-    public int i = 0;
-    private CharSCR pers;
-    private void Start()
+    public bool wordIsDone = false;
+    private int i = 0;
+    public int skolkoFraz;
+
+    public void Start()
     {
-       // panelDialog.transform.position = thoseWhoSay.transform.position;
+        skolkoFraz = message.Length;
         panelDialog.SetActive(false);
-        message[0] = "Мерзкие гоблины стащили пиво, как быть?!";
-        message[1] = "Статуя: Что за суета? Ты пришёл пиво на меня лить - так лей!";
-        message[2] = "Гоблины телегу унесли... Аааа! Говорящий камень!";
-        message[3] = "Статуя: Чего орёшь?  Сам ты камень, я Вольфрик, и криками Вольфрика не напоить, беги за пивом";
-        message[4] = "Статуя: Топор мой возьми, он скучает по гоблинским задницам";
+        //message[0] = "Мерзкие гоблины стащили пиво, как быть?!";
+        //message[1] = "Статуя: Что за суета? Ты пришёл пиво на меня лить - так лей!";
+        //message[2] = "Гоблины телегу унесли... Аааа! Говорящий камень!";
+        //message[3] = "Статуя: Чего орёшь?  Сам ты камень, я Вольфрик, и криками Вольфрика не напоить, беги за пивом";
+        //message[4] = "Статуя: Топор мой возьми, он скучает по гоблинским задницам";
     }
     private void DialogFade()
     {
         panelDialog.SetActive(false);
+    }
+    private void Print() { StartCoroutine(PrintMessagePerTime(message[i])); }
+    IEnumerator PrintMessagePerTime(string text) 
+    {
+        string startText = message[i];
+        for (int k = 0; k <= text.Length; k++)
+        {
+            textCS.text = text.Substring(0, k);
+            if (k == text.Length) wordIsDone = true;
+            yield return new WaitForSeconds(0.08f);
+        }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,32 +46,22 @@ public class Dialog : MonoBehaviour
         if (collision.tag == "Player")
         {
             panelDialog.SetActive(true);
-            dialogStart = true; 
-            textCS.text = message[0];
-        }
-        //if (collision.tag == "Chest")
-        //{
-        //    pers.gameObject.SetActive(false);
-        //}
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Debug.Log("Вышел из диалога");
-        if (collision.tag == "Player")
-        {
-            Invoke("DialogFade",2);
+            dialogStart = true;
+            Print();
         }
     }
     private void Update()
     {
+        panelDialog.transform.position = thoseWhoSay.transform.position;
         if (dialogStart == true)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && i < 5)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && i < 5 && wordIsDone)
             {
                 i++;
-                textCS.text = message[i];
+                Print();
+                wordIsDone = false;
             }
-           if (i>=6) Invoke("DialogFade", 2);
+            if (i >= skolkoFraz) Invoke("DialogFade", 2);
         }
     }
 }
