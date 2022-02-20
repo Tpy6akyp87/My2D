@@ -21,7 +21,7 @@ public class CharSCR : Unit
     new public Rigidbody2D rigidbody;
     public Animator animator;
     private SpriteRenderer sprite;
-    int playerObject, platformObject;
+    int playerObject, platformObject,groundLayer;
     public bool isFlip = false;
 
     public Transform attackPos;
@@ -35,6 +35,9 @@ public class CharSCR : Unit
 
     private float takeDamage;
     public bool dieTrigger;
+    //public float distanceToGround = 1.0f;
+    //private GoundCheck goungCheck;
+    //private float distToGround;
 
     public int Barrels
     {
@@ -68,6 +71,8 @@ public class CharSCR : Unit
         Patrons = 6;
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
+        groundLayer = LayerMask.NameToLayer("Ground");
+        //distToGround = 0.82F;
     }
     public void Awake()
     {
@@ -78,12 +83,17 @@ public class CharSCR : Unit
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet1");
+        //goungCheck = FindObjectOfType<GoundCheck>();
     }
     private void FixedUpdate()
     {
-        
         CheckGround();
     }
+    //private bool Grounded()
+    //{
+    //    return goungCheck.isGrounded;
+    //   // return new GameObject GetComponent<GoundCheck>().isGrounded;
+    //}
     public CharState State
     {
         get { return (CharState)animator.GetInteger("State"); }
@@ -107,6 +117,10 @@ public class CharSCR : Unit
             State = CharState.RDamage;
             takeDamage = 0;
         }
+        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
+        {
+            Jump();
+        }
         if (takeDamage == 2) //если умер
         {
             State = CharState.Die;
@@ -114,10 +128,7 @@ public class CharSCR : Unit
             Invoke("Ressurrect", 5.0F);
             dieTrigger = true;
         }
-        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
-        { 
-            Jump();
-        }
+        
         if (rigidbody.velocity.y < 0 && takeDamage != 2)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
@@ -217,10 +228,15 @@ public class CharSCR : Unit
             Debug.Log(lives);
         }
     }
-    private void CheckGround() 
+    private void CheckGround()
     {
         isGrounded = rigidbody.velocity.y == 0;
+        //isGrounded = Physics2D.Raycast(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, distanceToGround); //, playerObject
+        //Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, Color.yellow, distanceToGround);
+
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = collision.transform;

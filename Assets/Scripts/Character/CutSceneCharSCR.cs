@@ -34,9 +34,7 @@ public class CutSceneCharSCR : Unit
         if (direction.x > 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speedwalk * Time.deltaTime);
-            //sprite.flipX = direction.x < 0;
         }
-        //else sprite.flipX = direction.x < 0;
     }
   
 }
