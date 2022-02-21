@@ -8,8 +8,10 @@ public class CharSCR : Unit
     [SerializeField]
     private int patrons = 6;
     private int lives = 5;
+    private int barrels = 0;
     private HealthBar healthBar;
     private PatronBar patronBar;
+    private BarrelPanel barrelPanel;
     [SerializeField]
     public float speed = 5.0F;
     [SerializeField]
@@ -19,7 +21,7 @@ public class CharSCR : Unit
     new public Rigidbody2D rigidbody;
     public Animator animator;
     private SpriteRenderer sprite;
-    int playerObject, platformObject;
+    int playerObject, platformObject,groundLayer;
     public bool isFlip = false;
 
     public Transform attackPos;
@@ -33,7 +35,19 @@ public class CharSCR : Unit
 
     private float takeDamage;
     public bool dieTrigger;
+    //public float distanceToGround = 1.0f;
+    //private GoundCheck goungCheck;
+    //private float distToGround;
 
+    public int Barrels
+    {
+        get { return barrels; }
+        set
+        {
+            if (value <= 3) barrels = value;
+            barrelPanel.Refresh();
+        }
+    }
     public int Patrons
     {
         get { return patrons; }
@@ -57,21 +71,29 @@ public class CharSCR : Unit
         Patrons = 6;
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
+        groundLayer = LayerMask.NameToLayer("Ground");
+        //distToGround = 0.82F;
     }
     public void Awake()
     {
         patronBar = FindObjectOfType<PatronBar>();
+        barrelPanel = FindObjectOfType<BarrelPanel>();
         healthBar = FindObjectOfType<HealthBar>();
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet1");
+        //goungCheck = FindObjectOfType<GoundCheck>();
     }
     private void FixedUpdate()
     {
-        takeDamage = 0;
         CheckGround();
     }
+    //private bool Grounded()
+    //{
+    //    return goungCheck.isGrounded;
+    //   // return new GameObject GetComponent<GoundCheck>().isGrounded;
+    //}
     public CharState State
     {
         get { return (CharState)animator.GetInteger("State"); }
@@ -82,17 +104,22 @@ public class CharSCR : Unit
     {
         dieTrigger = false;
         State = CharState.Idle;
-        if (Input.GetButton("Horizontal")) //движение
+        if (Input.GetButton("Horizontal") && takeDamage != 2) //движение
         { 
             Run();
         }
-        if (Input.GetButton("Vertical")) //карабкаться
+        if (Input.GetButton("Vertical") && takeDamage != 2) //карабкаться
         { 
             Climb();
         }
         if (takeDamage == 1) // если получил урон
         {
-            State = CharState.RDamage; 
+            State = CharState.RDamage;
+            takeDamage = 0;
+        }
+        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
+        {
+            Jump();
         }
         if (takeDamage == 2) //если умер
         {
@@ -101,22 +128,19 @@ public class CharSCR : Unit
             Invoke("Ressurrect", 5.0F);
             dieTrigger = true;
         }
-        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
-        { 
-            Jump();
-        }
-        if (rigidbody.velocity.y < 0)
+        
+        if (rigidbody.velocity.y < 0 && takeDamage != 2)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
             //State = CharState.Fall;
         }
-        if (rigidbody.velocity.y > 0)
+        if (rigidbody.velocity.y > 0 && takeDamage != 2)
         {
             //State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         //Debug.Log(timeBtwShoot);
-        if (timeBtwShoot <= 0 && Patrons > 0)
+        if (timeBtwShoot <= 0 && Patrons > 0 && takeDamage != 2)
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
@@ -130,7 +154,7 @@ public class CharSCR : Unit
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        if (timeBtwAtack <= 0)// удар
+        if (timeBtwAtack <= 0 && takeDamage != 2)// удар
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -152,6 +176,7 @@ public class CharSCR : Unit
         Patrons = 3;
         speed = 5.0F;
         Debug.Log("я воскрес");
+        takeDamage = 0;
     }
 
     public void Run()
@@ -161,6 +186,7 @@ public class CharSCR : Unit
         if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.33F, -0.36F, 0);
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
+        isFlip = !sprite.flipX;
         State = CharState.Run;
     }
     public void Climb()
@@ -183,7 +209,7 @@ public class CharSCR : Unit
             Patrons--;
             patronBar.Refresh();
         }
-        Debug.Log(patrons);
+        Debug.Log("Осталось" + patrons + "патронов");
     }
     private void Jump()
     {
@@ -203,10 +229,15 @@ public class CharSCR : Unit
             Debug.Log(lives);
         }
     }
-    private void CheckGround() 
+    private void CheckGround()
     {
         isGrounded = rigidbody.velocity.y == 0;
+        //isGrounded = Physics2D.Raycast(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, distanceToGround); //, playerObject
+        //Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, Color.yellow, distanceToGround);
+
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name.Equals("Moving Platforms")) this.transform.parent = collision.transform;
@@ -228,11 +259,6 @@ public class CharSCR : Unit
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
-    
-
-
-
-
 }
 
 public enum CharState{

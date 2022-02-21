@@ -42,6 +42,7 @@ public class MonsterRoof : Monster
             newBullet.Parent = gameObject;
             newBullet.Direction = target.transform.position - position;
             newBullet.Color = bulletColor;
+            newBullet.speed = 15.0F;
         }
     }
     
