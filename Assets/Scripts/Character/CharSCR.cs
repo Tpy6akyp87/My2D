@@ -120,6 +120,7 @@ public class CharSCR : Unit
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
+                Debug.Log("Выстрел");
                 State = CharState.Shoot;
                 //Shoot();
                 timeBtwShoot = startTimeBtwShoot;
