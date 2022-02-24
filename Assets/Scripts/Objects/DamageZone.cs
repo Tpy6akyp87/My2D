@@ -19,6 +19,14 @@ public class DamageZone : MonoBehaviour
             }
            
         }
+        Char chara = collider.GetComponent<Char>();
+        if (chara)
+        {
+            for (int i = damage; i > 0; i--)
+            {
+                chara.ReceiveDamage(1);
+            }
+        }
     }
 
 }
