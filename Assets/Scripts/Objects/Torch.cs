@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Torch : MonoBehaviour
 {
-    private float rate = 2.0F;
-    private float speed = 0.7F;
+    public float rate;
+    public float speed;
     private Vector3 direction;
     private Vector3 directionV;
     private SpriteRenderer sprite;
     private void Awake()
     {
+        rate = Random.Range(1.5f, 2.5f);
+        speed = Random.Range(0.5f, 0.9f);
         sprite = GetComponentInChildren<SpriteRenderer>();
     }
     private void Start()
