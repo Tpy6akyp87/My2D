@@ -6,10 +6,11 @@ public class BeautyFire : MonoBehaviour
 {
     public GameObject objectRnd;
     private float timeBtwSpark;
-    public float startTimeBtwSpark;
+    private float startTimeBtwSpark;
     //public Transform summPosition;
     private void Awake()
     {
+        startTimeBtwSpark = Random.Range(3.5f, 5.5f);
         objectRnd = Resources.Load<GameObject>(objectRnd.name.ToString());
     }
     private void Sparkle() 
