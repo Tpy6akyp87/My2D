@@ -31,6 +31,7 @@ public class MonsterJump : Monster
         sprite = GetComponentInChildren<SpriteRenderer>();
         rigidbody = GetComponent<Rigidbody2D>();
         blood = Resources.Load<GameObject>("BloodDamage");
+        pers = FindObjectOfType<CharSCR>();
     }
     private bool IsPlayerNear
     {
@@ -55,7 +56,7 @@ public class MonsterJump : Monster
 
     private void AttackCheck() // анимация и таймер между атаками
     {
-        pers = FindObjectOfType<CharSCR>();
+       
         if (timeBtwAtack <= 0)
         {
             if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= attackdistance)
@@ -96,7 +97,7 @@ public class MonsterJump : Monster
     {
         //ускорение к игроку
 
-        pers = FindObjectOfType<CharSCR>();
+        //pers = FindObjectOfType<CharSCR>();
         if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
         {
             speed = 4.0F;

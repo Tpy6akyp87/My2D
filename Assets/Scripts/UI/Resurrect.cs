@@ -9,10 +9,12 @@ public class Resurrect : MonoBehaviour
     [SerializeField]
     private Transform respawnPoint = null;
     private CharSCR player;
-
-    public void Update()
+    private void Start()
     {
         player = FindObjectOfType<CharSCR>();
+    }
+    public void Update()
+    {
         if (player.dieTrigger == true)
         {
             Invoke("Resurrection", 5.0F);

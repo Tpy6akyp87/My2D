@@ -29,6 +29,8 @@ public class MonsterHight : Monster
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
         blood = Resources.Load<GameObject>("BloodDamage");
+
+        pers = FindObjectOfType<CharSCR>();
     }
 
     protected override void Start()
@@ -57,7 +59,6 @@ public class MonsterHight : Monster
 
     public void Shoot()
     {
-        pers = FindObjectOfType<CharSCR>();
         if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= shootdistance && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) <= shootdistance)
         {
             Vector3 position = transform.position;

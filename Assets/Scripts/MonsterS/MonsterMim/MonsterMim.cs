@@ -16,6 +16,7 @@ public class MonsterMim : Monster
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         blood = Resources.Load<GameObject>("BloodDamage");
+        player = FindObjectOfType<CharSCR>();
     }
     protected override void Update()
     {
@@ -29,7 +30,7 @@ public class MonsterMim : Monster
 
     public void TothePlayer()
     {
-        player = FindObjectOfType<CharSCR>();
+       // player = FindObjectOfType<CharSCR>();
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceToPlayer && (gameObject.transform.position - player.transform.position).magnitude > distanceAttack)
         {
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -43,7 +44,7 @@ public class MonsterMim : Monster
     }
     public void Attack()
     {
-        player = FindObjectOfType<CharSCR>();
+       
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack)
         {
             player.ReceiveDamage();

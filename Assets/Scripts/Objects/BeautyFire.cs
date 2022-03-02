@@ -7,11 +7,13 @@ public class BeautyFire : MonoBehaviour
     public GameObject objectRnd;
     private float timeBtwSpark;
     private float startTimeBtwSpark;
+    private CharSCR pers;
     //public Transform summPosition;
     private void Awake()
     {
         startTimeBtwSpark = Random.Range(3.5f, 5.5f);
         objectRnd = Resources.Load<GameObject>(objectRnd.name.ToString());
+        pers = FindObjectOfType<CharSCR>();
     }
     private void Sparkle() 
     {
@@ -23,15 +25,17 @@ public class BeautyFire : MonoBehaviour
         }
     }
     private void FixedUpdate()
-    {
-        if (timeBtwSpark <= 0)
+    {if ((pers.transform.position - gameObject.transform.position).magnitude < 10.0f)
         {
-            Sparkle();
-            timeBtwSpark = startTimeBtwSpark;
-        }
-        else
-        {
-            timeBtwSpark -= Time.deltaTime;
+            if (timeBtwSpark <= 0)
+            {
+                Sparkle();
+                timeBtwSpark = startTimeBtwSpark;
+            }
+            else
+            {
+                timeBtwSpark -= Time.deltaTime;
+            }
         }
     }
 }

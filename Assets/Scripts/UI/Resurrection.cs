@@ -9,10 +9,14 @@ public class Resurrectionpoint : MonoBehaviour
     [SerializeField]
     private Transform respawnPoint = null;
     private CharSCR player;
-    
+
+    private void Start()
+    {
+
+        player = FindObjectOfType<CharSCR>();
+    }
     public void Update()
     {
-        player = FindObjectOfType<CharSCR>();
         if (player.Lives < 1)
         {
             Resurrection();

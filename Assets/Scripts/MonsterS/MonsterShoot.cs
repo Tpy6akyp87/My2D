@@ -23,12 +23,14 @@ public class MonsterShoot : Monster
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
         blood = Resources.Load<GameObject>("BloodDamage");
+        pers = FindObjectOfType<CharSCR>();
     }
+    
 
 
     protected override void Update()
     {
-        pers = FindObjectOfType<CharSCR>();
+        
         if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = false;
         else sprite.flipX = true;
         IsPlayerNear = false;
@@ -66,7 +68,7 @@ public class MonsterShoot : Monster
     }
     public void Shoot()
     {
-        pers = FindObjectOfType<CharSCR>();
+        //pers = FindObjectOfType<CharSCR>();
         Vector3 position = transform.position;
         if (gameObject.transform.position.x < pers.transform.position.x) sprite.flipX = false; 
         else sprite.flipX = true;

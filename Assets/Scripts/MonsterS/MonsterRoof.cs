@@ -26,12 +26,13 @@ public class MonsterRoof : Monster
         animator = GetComponent<Animator>();
         bullet = Resources.Load<Bullet>("Bullet");
         sprite = GetComponentInChildren<SpriteRenderer>();
+        pers = FindObjectOfType<CharSCR>();
     }
 
    
     public void Shoot()
     {
-        pers = FindObjectOfType<CharSCR>();
+        
         if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= shootdistance && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) <= shootdistance)
         {
             Vector3 position = transform.position;
