@@ -15,7 +15,7 @@ public class Unit : MonoBehaviour
     public virtual void Die()
     {
         Destroy(gameObject);
-        rnd = Random.Range(1,5);
+        rnd = Random.Range(1,8);
         heart = Resources.Load<Heart>("Heart");
         patron = Resources.Load<Patron>("Patron");
         if (rnd == 1)
