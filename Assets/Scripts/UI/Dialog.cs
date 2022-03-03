@@ -7,6 +7,7 @@ public class Dialog : MonoBehaviour
 {
     public GameObject panelDialog;
     public GameObject thoseWhoSay;
+    public GameObject clickImg;
     public Text textCS;
     public string textMessage;
     public string[] message;
@@ -17,13 +18,7 @@ public class Dialog : MonoBehaviour
 
     public void Start()
     {
-        skolkoFraz = message.Length;
         panelDialog.SetActive(false);
-        //message[0] = "Мерзкие гоблины стащили пиво, как быть?!";
-        //message[1] = "Статуя: Что за суета? Ты пришёл пиво на меня лить - так лей!";
-        //message[2] = "Гоблины телегу унесли... Аааа! Говорящий камень!";
-        //message[3] = "Статуя: Чего орёшь?  Сам ты камень, я Вольфрик, и криками Вольфрика не напоить, беги за пивом";
-        //message[4] = "Статуя: Топор мой возьми, он скучает по гоблинским задницам";
     }
     private void DialogFade()
     {
@@ -32,11 +27,15 @@ public class Dialog : MonoBehaviour
     private void Print() { StartCoroutine(PrintMessagePerTime(message[i])); }
     IEnumerator PrintMessagePerTime(string text) 
     {
-        string startText = message[i];
         for (int k = 0; k <= text.Length; k++)
         {
             textCS.text = text.Substring(0, k);
-            if (k == text.Length) wordIsDone = true;
+            if (k == text.Length)
+            {
+                clickImg.SetActive(true);
+                wordIsDone = true; 
+            }
+            Debug.Log("k равно  " + k);
             yield return new WaitForSeconds(0.08f);
         }
     }
@@ -45,6 +44,8 @@ public class Dialog : MonoBehaviour
         Debug.Log("Вошел в диалог");
         if (collision.tag == "Player")
         {
+            skolkoFraz = message.Length;
+            Debug.Log(skolkoFraz);
             panelDialog.SetActive(true);
             dialogStart = true;
             Print();
@@ -55,13 +56,23 @@ public class Dialog : MonoBehaviour
         panelDialog.transform.position = thoseWhoSay.transform.position;
         if (dialogStart == true)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && i < 5 && wordIsDone)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && i < skolkoFraz-1 && wordIsDone)
             {
                 i++;
                 Print();
                 wordIsDone = false;
+                clickImg.SetActive(false);
+                Debug.Log("i равно  " + i);
             }
-            if (i >= skolkoFraz) Invoke("DialogFade", 2);
+            if (i == skolkoFraz-1 && wordIsDone) 
+            { 
+                Invoke("DialogFade", 2);
+                clickImg.SetActive(false);
+            }
+            if (i == skolkoFraz-1)
+            {
+                clickImg.SetActive(false);
+            }
         }
     }
 }

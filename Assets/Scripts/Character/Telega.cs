@@ -6,6 +6,11 @@ public class Telega : MonoBehaviour
 {
     public GameObject Thievs;
     public float speed = 2.0F;
+    private GameObject sparkles;
+    private void Awake()
+    {
+        sparkles = Resources.Load<GameObject>("Smoke");
+    }
     private void Update()
     {
         if (Input.GetButton("Horizontal"))
@@ -22,6 +27,8 @@ public class Telega : MonoBehaviour
     {
         Destroy(gameObject);
         Thievs.SetActive(false);
+        GameObject newSparkle = Instantiate(sparkles, gameObject.transform.position, sparkles.transform.rotation) as GameObject;
+        Destroy(newSparkle, 1.5F);
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
