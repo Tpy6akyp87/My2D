@@ -63,7 +63,7 @@ public class MonsterSpider : Monster
     }
     public void FromthePlayer()
     {
-        if (vertDist > 2 && gameObject.transform.position.y > player.transform.position.y && dist > 4)
+        if (vertDist > 2 && gameObject.transform.position.y > player.transform.position.y && dist > 4) 
             downVector = Vector3.down;
         else
             downVector = Vector3.zero;
