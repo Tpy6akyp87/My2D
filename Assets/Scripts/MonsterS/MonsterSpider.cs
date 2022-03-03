@@ -9,6 +9,7 @@ public class MonsterSpider : Monster
     public CharSCR player;
     private GameObject blood;
     private Vector3 direction;
+    private Vector3 downVector;
     public float distanceAttack;
     public float speed;
     private int lives = 5;
@@ -17,6 +18,9 @@ public class MonsterSpider : Monster
     private Bullet bullet;
     public Color bulletColor = Color.white;
     private float dist;
+    private float vertDist;
+    public GameObject key;
+    private bool runing;
     public int State
     {
         get { return animator.GetInteger("State"); }
@@ -27,6 +31,7 @@ public class MonsterSpider : Monster
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         blood = Resources.Load<GameObject>("BloodDamage");
+        bullet = Resources.Load<Bullet>("Bullet");
     }
     protected override void Start()
     {
@@ -40,24 +45,43 @@ public class MonsterSpider : Monster
     protected override void Update()
     {
         dist = (gameObject.transform.position - player.transform.position).magnitude;
-        if (dist <= shootdistance && dist >= distanceAttack)
-            Shoot();
-        if (dist <= distanceFollowPlayer && dist > distanceAttack)// && State != 3)
-            TothePlayer();
-        if (dist <= distanceAttack)// && State != 3)
-            if (Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) < 2) // Проверка на топот
-                State = 3;
-            else
-                transform.position = Vector3.MoveTowards(transform.position, -player.transform.position, speed * Time.deltaTime);
+        vertDist = Mathf.Abs(gameObject.transform.position.y - player.transform.position.y);
+
+
+        if (dist <= shootdistance && dist > distanceAttack && State != 3 && !runing) //стрелба
+            State = 2;
+
+
+        if (dist <= distanceAttack && vertDist > 0.2f && State != 3) //отбег
+            FromthePlayer();
+        else
+            runing = false;
+
+
+        if (dist <= distanceAttack && vertDist <= 0.2f && State != 3) //атака
+                State = 1;
     }
-    public void TothePlayer()
+    public void FromthePlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        if (vertDist > 2 && gameObject.transform.position.y > player.transform.position.y && dist > 4)
+            downVector = Vector3.down;
+        else
+            downVector = Vector3.zero;
+
+        transform.position = Vector3.MoveTowards(transform.position, -player.transform.position + downVector, speed * 3.0f * Time.deltaTime);
+
         if (gameObject.transform.position.x > player.transform.position.x)
             sprite.flipX = true;
         else
             sprite.flipX = false;
-        State = 1;
+
+        State = 0;
+        runing = true;
+        
+    }
+    public void Landing()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, Vector3.down, speed * Time.deltaTime);
     }
     public void Attack()
     {
@@ -79,5 +103,25 @@ public class MonsterSpider : Monster
             newBullet.Direction = player.transform.position - position;
             newBullet.Color = bulletColor;
             newBullet.speed = 15.0F;
+    }
+    public override void ReceiveDamage()
+    {
+        lives--;
+        if (lives > 0)
+        {
+            Debug.Log("моль получил урон");
+        }
+        else
+        {
+            Debug.Log("моль УМЕР!");
+            State = 3;
+            speed = 0.0F;
+            Debug.Log("State is   " + State);
+            key.SetActive(true);
+        }
+        Debug.Log("у моля жизней   " + lives);
+        Vector3 position = transform.position;
+        GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
+        Destroy(newBlood, 1.0F);
     }
 }
