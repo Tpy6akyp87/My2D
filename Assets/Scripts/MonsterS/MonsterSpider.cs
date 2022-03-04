@@ -8,7 +8,7 @@ public class MonsterSpider : Monster
     private SpriteRenderer sprite;
     public CharSCR player;
     private GameObject blood;
-    private Vector3 direction;
+    //private Vector3 direction;
     private Vector3 downVector;
     public float distanceAttack;
     public float speed;
@@ -35,7 +35,7 @@ public class MonsterSpider : Monster
     }
     protected override void Start()
     {
-        direction = transform.right;
+        //direction = transform.right;
         player = FindObjectOfType<CharSCR>();
     }
     //Idle-0
@@ -52,7 +52,7 @@ public class MonsterSpider : Monster
             State = 2;
 
 
-        if (dist <= distanceAttack && vertDist > 0.2f && State != 3) //отбег
+        if (dist <= distanceAttack && State != 3) //отбег  && vertDist > 0.2f
             FromthePlayer();
         else
             runing = false;
@@ -63,14 +63,14 @@ public class MonsterSpider : Monster
     }
     public void FromthePlayer()
     {
-        if (vertDist > 2 && gameObject.transform.position.y > player.transform.position.y && dist > 4) 
+        if (vertDist > 3 && gameObject.transform.position.y > player.transform.position.y && dist > 4) 
             downVector = Vector3.down;
         else
             downVector = Vector3.zero;
 
-        transform.position = Vector3.MoveTowards(transform.position, -player.transform.position + downVector, speed * 3.0f * Time.deltaTime);
+        transform.position = -Vector3.MoveTowards(transform.position, player.transform.position + downVector, speed * 3.0f * Time.deltaTime);
 
-        if (gameObject.transform.position.x > player.transform.position.x)
+        if (gameObject.transform.position.x > player.transform.position.x) // проверка на поворот к игроку
             sprite.flipX = true;
         else
             sprite.flipX = false;
@@ -79,10 +79,10 @@ public class MonsterSpider : Monster
         runing = true;
         
     }
-    public void Landing()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, Vector3.down, speed * Time.deltaTime);
-    }
+    //public void Landing()
+    //{
+    //    transform.position = Vector3.MoveTowards(transform.position, Vector3.down, speed * Time.deltaTime);
+    //}
     public void Attack()
     {
         if (dist <= distanceAttack)
