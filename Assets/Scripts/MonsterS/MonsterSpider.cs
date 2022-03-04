@@ -9,7 +9,7 @@ public class MonsterSpider : Monster
     public CharSCR player;
     private GameObject blood;
     //private Vector3 direction;
-    private Vector3 downVector;
+    private Vector3 direction;
     public float distanceAttack;
     public float speed;
     private int lives = 5;
@@ -51,24 +51,23 @@ public class MonsterSpider : Monster
         if (dist <= shootdistance && dist > distanceAttack && State != 3 && !runing) //стрелба
             State = 2;
 
+        if (dist <= distanceAttack && State != 3)
+            if(gameObject.transform.position.x > player.transform.position.x) direction = Vector3.left;
+            else direction = Vector3.right;
+        if (dist >= shootdistance && State != 3) direction = Vector3.zero;
 
-        if (dist <= distanceAttack && State != 3) //отбег  && vertDist > 0.2f
-            FromthePlayer();
+        if (dist <= distanceAttack && State != 3) 
+            FromthePlayer(direction);
         else
             runing = false;
 
 
-        if (dist <= distanceAttack && vertDist <= 0.2f && State != 3) //атака
-                State = 1;
+        //if (dist <= distanceAttack && vertDist <= 0.2f && State != 3) //атака
+        //        State = 1;
     }
-    public void FromthePlayer()
+    public void FromthePlayer(Vector3 dir)
     {
-        if (vertDist > 3 && gameObject.transform.position.y > player.transform.position.y && dist > 4) 
-            downVector = Vector3.down;
-        else
-            downVector = Vector3.zero;
-
-        transform.position = -Vector3.MoveTowards(transform.position, player.transform.position + downVector, speed * 3.0f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, dir, speed * Time.deltaTime);
 
         if (gameObject.transform.position.x > player.transform.position.x) // проверка на поворот к игроку
             sprite.flipX = true;
