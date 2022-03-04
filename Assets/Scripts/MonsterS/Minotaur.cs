@@ -31,10 +31,11 @@ public class Minotaur : Monster
     protected override void Start()
     {
         direction = transform.right;
+        player = FindObjectOfType<CharSCR>();
     }
     protected override void Update()
     {
-        player = FindObjectOfType<CharSCR>();
+        
         //Проверка на преследование
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceToPlayer && (gameObject.transform.position - player.transform.position).magnitude > distanceAttack && State!=4)
             TothePlayer();
