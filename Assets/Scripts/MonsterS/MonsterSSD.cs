@@ -33,11 +33,6 @@ public class MonsterSSD : Monster
         get { return animator.GetBool("IsPlayerNear"); }
         set { animator.SetBool("IsPlayerNear", value); }
     }
-    //private bool playernear
-    //{
-    //    get { return animator.GetBool("playernear"); }
-    //    set { animator.SetBool("playernear", value); }
-    //}
 
     protected override void Update()
     {
@@ -74,9 +69,14 @@ public class MonsterSSD : Monster
     
     private void Move()
     {
+        if((transform.position-pers.transform.position).magnitude < 5 && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
+        {
+            speed = 4.0f;
+            direction = pers.transform.position;
+        }
+
         //ускорение к игроку
 
-        //pers = FindObjectOfType<CharSCR>();
         if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
         {
             speed = 4.0F;
