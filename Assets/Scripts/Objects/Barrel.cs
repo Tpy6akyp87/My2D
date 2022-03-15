@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Barrel : MonoBehaviour
 {
+    public int count;
     private GameObject sparkles;
     public void OnTriggerEnter2D(Collider2D collider)
     {
@@ -11,7 +12,7 @@ public class Barrel : MonoBehaviour
 
         if (character)
         {
-            character.Barrels++;
+            character.Barrels+= count;
             Debug.Log(character.Barrels);
             Destroy(gameObject);
             Vector3 position = transform.position;
