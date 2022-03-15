@@ -69,30 +69,35 @@ public class MonsterSSD : Monster
     
     private void Move()
     {
-        if((transform.position-pers.transform.position).magnitude < 5 && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
+        if((transform.position - pers.transform.position).magnitude > attackdistance && (transform.position-pers.transform.position).magnitude < 5 && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
         {
             speed = 4.0f;
+            direction = pers.transform.position;
+        }
+        if ((transform.position - pers.transform.position).magnitude < attackdistance && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
+        {
+            speed = 0.0f;
             direction = pers.transform.position;
         }
 
         //ускорение к игроку
 
-        if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
-        {
-            speed = 4.0F;
-            direction = -transform.right;
-        }
-        if (gameObject.transform.position.x < pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
-        {
-            speed = 4.0F;
-            direction = transform.right;
-        }
-        if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > 5 || Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) > 1) speed = 0.5F;
+        //if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
+        //{
+        //    speed = 4.0F;
+        //    direction = -transform.right;
+        //}
+        //if (gameObject.transform.position.x < pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
+        //{
+        //    speed = 4.0F;
+        //    direction = transform.right;
+        //}
+        //if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > 5 || Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) > 1) speed = 0.5F;
 
         //разворот у преграды
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.5F) + transform.right * direction.x * 0.6F, 0.05F);
-        if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<CharSCR>())) direction *= -1.0F;
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.5F) + transform.right * direction.x * 0.6F, 0.05F);
+        //if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<CharSCR>())) direction *= -1.0F;
         sprite.flipX = direction.x < 0;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
     }

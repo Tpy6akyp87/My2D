@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Assets",
+    "\\Assets\\Scripts",
+    "\\Assets\\Scripts\\Character",
+    "\\Assets\\Scripts\\MonsterS",
+    "\\Assets\\Scripts\\Objects"
   ],
+  "SelectedNode": "\\Assets\\Scripts\\Character\\CharSCR.cs",
   "PreviewInSolutionExplorer": false
 }
