@@ -28,98 +28,52 @@ public class MonsterSSD : Monster
         blood = Resources.Load<GameObject>("BloodDamage");
         pers = FindObjectOfType<CharSCR>();
     }
-    private bool IsPlayerNear
-    {
-        get { return animator.GetBool("IsPlayerNear"); }
-        set { animator.SetBool("IsPlayerNear", value); }
-    }
+    //0-idle
+    //1-run
+    //2-attack
+    //3-die
 
     protected override void Update()
     {
-        AttackCheck();
+        if ((gameObject.transform.position - pers.transform.position).magnitude <= attackdistance && State !=3) OnAttack();
+        if ((gameObject.transform.position - pers.transform.position).magnitude > attackdistance && State != 3) Move();
+
+        if (gameObject.transform.position.x < pers.transform.position.x && State != 3) sprite.flipX = false;
+        else sprite.flipX = true;
+
     }
     protected override void Start()
     {
-        direction = transform.right;
+        State = 0;
     }
-
-    private void AttackCheck() // анимация и таймер между атаками
+    private void Move()
     {
-       
+        
+        if((gameObject.transform.position-pers.transform.position).magnitude < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1.5F && State != 3)
+        {
+            speed = 4.0f;
+            direction = pers.transform.position;
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, direction, speed * Time.deltaTime);
+            State = 1;
+        }
+        if ((gameObject.transform.position - pers.transform.position).magnitude >= 5 && State != 3) 
+        {
+            speed = 0.0f;
+            State = 0;
+        }
+    }
+    public void OnAttack()
+    {
         if (timeBtwAtack <= 0)
         {
-            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) <= attackdistance)
-            {
-                IsPlayerNear = true;
-                speed = 0.0F;
-                timeBtwAtack = startTimeBtwAttack;
-            }
-            if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > attackdistance)
-            {
-                IsPlayerNear = false;
-                Move();
-            }
+            State = 2;
+            pers.ReceiveDamage();
+            speed = 0.0F;
+            timeBtwAtack = startTimeBtwAttack;
         }
         else
         {
             timeBtwAtack -= Time.deltaTime;
-        }
-    }
-    
-    
-    private void Move()
-    {
-        if((transform.position - pers.transform.position).magnitude > attackdistance && (transform.position-pers.transform.position).magnitude < 5 && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
-        {
-            speed = 4.0f;
-            direction = pers.transform.position;
-        }
-        if ((transform.position - pers.transform.position).magnitude < attackdistance && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 1)
-        {
-            speed = 0.0f;
-            direction = pers.transform.position;
-        }
-
-        //ускорение к игроку
-
-        //if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
-        //{
-        //    speed = 4.0F;
-        //    direction = -transform.right;
-        //}
-        //if (gameObject.transform.position.x < pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
-        //{
-        //    speed = 4.0F;
-        //    direction = transform.right;
-        //}
-        //if (Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) > 5 || Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) > 1) speed = 0.5F;
-
-        //разворот у преграды
-
-        //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + transform.up * (-0.5F) + transform.right * direction.x * 0.6F, 0.05F);
-        //if (colliders.Length > 0 && colliders.All(x => !x.GetComponent<CharSCR>())) direction *= -1.0F;
-        sprite.flipX = direction.x < 0;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
-    }
-    public void OnAttack()
-    {
-        Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemy);
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<CharSCR>().ReceiveDamage();
-        }
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(attackPos.position, attackRange);
-        //Gizmos.DrawSphere(attackPos.position, attackRange);
-    }
-    protected override void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            Debug.Log("SSDMonsterDamage");
         }
     }
     public int State
@@ -130,11 +84,10 @@ public class MonsterSSD : Monster
     public override void ReceiveDamage()
     {
         Debug.Log("смерть пришла");
-        State = 1;
+        State = 3;
         speed = 0.0F;
         Vector3 position = transform.position;
         GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
         Destroy(newBlood, 1.0F);
-        // Invoke("Die",0.4F);
     }
 }
