@@ -95,9 +95,6 @@ public class MonsterJump : Monster
 
     private void Move()
     {
-        //ускорение к игроку
-
-        //pers = FindObjectOfType<CharSCR>();
         if (gameObject.transform.position.x > pers.transform.position.x && Mathf.Abs(gameObject.transform.position.x - pers.transform.position.x) < 5 && Mathf.Abs(gameObject.transform.position.y - pers.transform.position.y) < 1)
         {
             speed = 4.0F;
