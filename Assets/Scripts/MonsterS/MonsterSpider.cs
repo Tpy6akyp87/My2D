@@ -12,7 +12,7 @@ public class MonsterSpider : Monster
     private Vector3 direction;
     public float distanceAttack;
     public float speed;
-    private int lives = 5;
+    private int lives = 10;
     public float distanceFollowPlayer;
     public float shootdistance;
     private Bullet bullet;
