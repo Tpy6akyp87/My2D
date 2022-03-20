@@ -11,12 +11,13 @@ public class MonsterBoss : Monster
     private Vector3 direction;
     private SpriteRenderer sprite;
     private Animator animator;
-    public CharSCR player;
+    private CharSCR player;
     private GameObject blood;
     public GameObject ground;
     public GameObject key;
     private int lives = 10;
     private bool isBattleBegin = false;
+    private float distBtw; 
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,17 +36,17 @@ public class MonsterBoss : Monster
     }
     protected override void Update()
     {
-
+        distBtw = (gameObject.transform.position - player.transform.position).magnitude;
         //Проверка на преследование
-        if ((gameObject.transform.position - player.transform.position).magnitude <= distanceToPlayer && (gameObject.transform.position - player.transform.position).magnitude > distanceAttack && State != 4)
+        if (distBtw <= distanceToPlayer && distBtw > distanceAttack && State != 4)
             TothePlayer();
         //Проверка на покой
-        if ((gameObject.transform.position - player.transform.position).magnitude >= distanceToPlayer && State != 4)
+        if (distBtw >= distanceToPlayer && State != 4)
             if (isBattleBegin && Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) < 2) // Проверка на топот
                 State = 3;
             else
                 State = 0;
-        //Проверка на круговую атаку
+        //Проверка ближнюю атаку
         if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack && State != 4)
         {
             isBattleBegin = true;
