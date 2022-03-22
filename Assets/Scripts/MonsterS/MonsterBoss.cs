@@ -6,23 +6,34 @@ public class MonsterBoss : Monster
 {
     public float distanceToPlayer;
     public float distanceAttack;
+    public float distForBattleBegin;
     public float speed;
     public float powerOfStomp;
     private Vector3 direction;
     private SpriteRenderer sprite;
     private Animator animator;
     private CharSCR player;
+    private Bullet bullet;
+    [SerializeField]
+    private Color bulletColor = Color.white;
     private GameObject blood;
     public GameObject ground;
     public GameObject key;
-    private int lives = 10;
+    public GameObject frostWall;
+    public int lives = 10;
     private bool isBattleBegin = false;
-    private float distBtw; 
+    public float distBtw;
+    public float timeBtwShoot;
+    public float startTimeBtwShoot;
+
+
+
     protected override void Awake()
     {
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         blood = Resources.Load<GameObject>("BloodDamage");
+        bullet = Resources.Load<Bullet>("Bullet");
     }
     //Idle-0
     //Run-1
@@ -37,22 +48,38 @@ public class MonsterBoss : Monster
     protected override void Update()
     {
         distBtw = (gameObject.transform.position - player.transform.position).magnitude;
+
+        //триггер начала боя
+        if (distBtw < distForBattleBegin && State != 4)
+        {
+            frostWall.SetActive(true);
+            isBattleBegin = true; 
+        }
+
         //Проверка на преследование
         if (distBtw <= distanceToPlayer && distBtw > distanceAttack && State != 4)
             TothePlayer();
-        //Проверка на покой
-        if (distBtw >= distanceToPlayer && State != 4)
-            if (isBattleBegin && Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) < 2) // Проверка на топот
-                State = 3;
-            else
-                State = 0;
-        //Проверка ближнюю атаку
-        if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack && State != 4)
+        
+        //проверка на обстрел
+        if (timeBtwShoot <= 0 && State != 4 && isBattleBegin || timeBtwShoot <= 0 && distBtw >= distanceToPlayer && State != 4 && isBattleBegin)
         {
-            isBattleBegin = true;
+            UpperShoot();
+            timeBtwShoot = startTimeBtwShoot;
+        }
+        else
+        {
+            timeBtwShoot -= Time.deltaTime;
+        }
+
+        //Проверка ближнюю атаку
+        if (distBtw <= distanceAttack && State != 4)
+        {
+            speed = 0.0f;
             State = 2;
         }
-        if (player.Lives < 1 && State != 4) //проверка смерти игрока
+
+        //проверка смерти игрока
+        if (player.Lives < 1 && State != 4) 
         {
             isBattleBegin = false;
             State = 0;
@@ -63,6 +90,7 @@ public class MonsterBoss : Monster
 
     public void TothePlayer()
     {
+        speed = 4.8f;
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         if (gameObject.transform.position.x > player.transform.position.x)
             sprite.flipX = true;
@@ -72,19 +100,26 @@ public class MonsterBoss : Monster
     }
     public void Attack()
     {
-        if ((gameObject.transform.position - player.transform.position).magnitude <= distanceAttack)
+        if (distBtw <= distanceAttack)
         {
             player.ReceiveDamage();
             player.State = CharState.RDamage;
-            Debug.Log("персонаж получил урон от топора");
+            Debug.Log("персонаж получил урон ВБЛИЗИ");
         }
     }
-    public void Stomp()//опустил землю
+    public void UpperShoot()//опустил землю
     {
+        for (int i = 0; i <= 7; i++)
+        {
+            Bullet newBullet = Instantiate(bullet, new Vector3(543.0f + Random.Range(0, 19), 227.0f, 0.0f), bullet.transform.rotation) as Bullet;
+            newBullet.Parent = gameObject;
+            newBullet.speed = 6.0f;
+            newBullet.Direction = Vector3.down;
+            newBullet.Color = bulletColor;
+        }
+
         ground.transform.position = new Vector3(0, -1 * powerOfStomp);
-        player.ReceiveDamage();
-        player.State = CharState.RDamage;
-        Debug.Log("персонаж получил урон от топора");
+        Debug.Log("ПУЛИ ПОШЛИ!");
     }
     public void Stomp1()//вернул землю
     {
@@ -101,18 +136,18 @@ public class MonsterBoss : Monster
         lives--;
         if (lives > 0)
         {
-            Debug.Log("Бык получил урон");
             isBattleBegin = true;
         }
         else
         {
-            Debug.Log("Бык УМЕР!");
+            Debug.Log("босс УМЕР!");
             State = 4;
             speed = 0.0F;
             Debug.Log("State is   " + State);
             key.SetActive(true);
+            frostWall.SetActive(false);
         }
-        Debug.Log("у быка жизней   " + lives);
+        Debug.Log("у босса жизней   " + lives);
         Vector3 position = transform.position;
         GameObject newBlood = Instantiate(blood, position, blood.transform.rotation) as GameObject;
         Destroy(newBlood, 1.0F);

@@ -182,8 +182,8 @@ public class CharSCR : Unit
     public void Run()
     {
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
-        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.33F, -0.36F, 0);
-        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.33F, -0.36F, 0);
+        if (direction.x < 0) attackPos.transform.position = gameObject.transform.position + new Vector3(-0.33F, -0.34F, 0);
+        if (direction.x > 0) attackPos.transform.position = gameObject.transform.position + new Vector3(0.33F, -0.34F, 0);
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
         sprite.flipX = direction.x < 0;
         isFlip = !sprite.flipX;
