@@ -6,6 +6,10 @@ public class Barrel : MonoBehaviour
 {
     public int count;
     private GameObject sparkles;
+    private void Awake()
+    {
+        sparkles = Resources.Load<GameObject>("FlagSparkle");
+    }
     public void OnTriggerEnter2D(Collider2D collider)
     {
         CharSCR character = collider.GetComponent<CharSCR>();

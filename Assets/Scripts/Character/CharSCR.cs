@@ -32,6 +32,7 @@ public class CharSCR : Unit
     public float startTimeBtwAttack;
     private float timeBtwShoot;
     public float startTimeBtwShoot;
+    public float timerDamage;
 
     private float takeDamage;
     public bool dieTrigger;
@@ -102,13 +103,16 @@ public class CharSCR : Unit
 
     private void Update()
     {
+        if (State != CharState.Die)
+            State = CharState.Idle;
         dieTrigger = false;
-        State = CharState.Idle;
-        if (Input.GetButton("Horizontal") && takeDamage != 2) //движение
+        timerDamage -= Time.deltaTime;
+
+        if (Input.GetButton("Horizontal") && State != CharState.Die) //движение
         { 
             Run();
         }
-        if (Input.GetButton("Vertical") && takeDamage != 2) //карабкаться
+        if (Input.GetButton("Vertical") && State != CharState.Die) //карабкаться
         { 
             Climb();
         }
@@ -117,7 +121,7 @@ public class CharSCR : Unit
             State = CharState.RDamage;
             takeDamage = 0;
         }
-        if (isGrounded && Input.GetButtonDown("Jump")) //прыжок
+        if (isGrounded && Input.GetButtonDown("Jump") && State != CharState.Die) //прыжок
         {
             Jump();
         }
@@ -127,20 +131,21 @@ public class CharSCR : Unit
             Debug.Log("Помер");
             Invoke("Ressurrect", 5.0F);
             dieTrigger = true;
+            takeDamage = 0;
         }
         
-        if (rigidbody.velocity.y < 0 && takeDamage != 2)
+        if (rigidbody.velocity.y < 0 && State != CharState.Die)
         {
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, false);
             //State = CharState.Fall;
         }
-        if (rigidbody.velocity.y > 0 && takeDamage != 2)
+        if (rigidbody.velocity.y > 0 && State != CharState.Die)
         {
             //State = CharState.Jump;
             Physics2D.IgnoreLayerCollision(playerObject, platformObject, true);
         }
         //Debug.Log(timeBtwShoot);
-        if (timeBtwShoot <= 0 && Patrons > 0 && takeDamage != 2)
+        if (timeBtwShoot <= 0 && Patrons > 0 && State != CharState.Die)
         {
             if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
             {
@@ -154,7 +159,7 @@ public class CharSCR : Unit
         {
             timeBtwShoot -= Time.deltaTime;
         }
-        if (timeBtwAtack <= 0 && takeDamage != 2)// удар
+        if (timeBtwAtack <= 0 && State != CharState.Die)// удар
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -174,6 +179,7 @@ public class CharSCR : Unit
         State = CharState.Idle;
         Lives = 2;
         Patrons = 3;
+        speed = 5.0F;
         speed = 5.0F;
         Debug.Log("я воскрес");
         takeDamage = 0;
@@ -217,7 +223,12 @@ public class CharSCR : Unit
     }
     public override void ReceiveDamage()
     {
-        Lives--;
+        if (timerDamage < 0) //1 сек неуязвимости после получения урона
+        {
+            Lives--;
+            timerDamage = 1.0F;
+        }
+
         if (Lives == 0)
         {
             takeDamage = 2;

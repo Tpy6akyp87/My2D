@@ -17,6 +17,7 @@ public class Resurrect : MonoBehaviour
     {
         if (player.dieTrigger == true)
         {
+            player.dieTrigger = false;
             Invoke("Resurrection", 5.0F);
         }
     }

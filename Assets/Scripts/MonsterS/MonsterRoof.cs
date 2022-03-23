@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MonsterRoof : Monster
 {
-    [SerializeField]
-    private float rate = 2.0F;
-    private float speed = 2.0F;
     private Bullet bullet;
     [SerializeField]
     private Color bulletColor = Color.white;

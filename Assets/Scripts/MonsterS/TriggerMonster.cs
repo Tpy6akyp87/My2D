@@ -5,7 +5,6 @@ using UnityEngine;
 public class TriggerMonster : MonoBehaviour
 {
     public GameObject addableMonster;
-    //private MonsterShoot addMonster;
     public Transform summPosition;
     private bool summoned = false;
     private void Awake()

@@ -20,11 +20,13 @@ public class MonsterBoss : Monster
     public GameObject ground;
     public GameObject key;
     public GameObject frostWall;
-    public int lives = 10;
+    public int lives = 25;
     private bool isBattleBegin = false;
     public float distBtw;
     public float timeBtwShoot;
     public float startTimeBtwShoot;
+    public GameObject addableMonster;
+    public Transform summPosition;
 
 
 
@@ -107,6 +109,7 @@ public class MonsterBoss : Monster
             Debug.Log("персонаж получил урон ¬ЅЋ»«»");
         }
     }
+   
     public void UpperShoot()//опустил землю
     {
         for (int i = 0; i <= 7; i++)
@@ -146,6 +149,10 @@ public class MonsterBoss : Monster
             Debug.Log("State is   " + State);
             key.SetActive(true);
             frostWall.SetActive(false);
+        }
+        if (lives == 20 || lives == 15 || lives == 10 || lives == 5)
+        {
+            GameObject gameObject = Instantiate(addableMonster, transform.position + new Vector3(2.0f,0.0f,0.0f), addableMonster.transform.rotation) as GameObject;
         }
         Debug.Log("у босса жизней   " + lives);
         Vector3 position = transform.position;
