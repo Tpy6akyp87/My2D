@@ -7,12 +7,27 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("CutScene");
     }
     public void ExitGame()
     {
         Debug.Log("GAME OVER");
         Application.Quit();
+    }
+    public void PlayScene1()
+    {
+        SceneManager.LoadScene("FirstScene");
+    }
+    public void PlayScene2()
+    {
+        SceneManager.LoadScene("SecondScene");
+    }
+    public void PlayScene3()
+    {
+        SceneManager.LoadScene("ThirdScene");
+    }
+    public void PlayScene4()
+    {
+        SceneManager.LoadScene("FourhScene");
     }
 }
