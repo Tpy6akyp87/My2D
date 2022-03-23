@@ -73,7 +73,9 @@ public class CharSCR : Unit
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
         groundLayer = LayerMask.NameToLayer("Ground");
-        //distToGround = 0.82F;
+        Lives = GlobalObject.Instance.lives;
+        Patrons = GlobalObject.Instance.patrons;
+        Barrels = GlobalObject.Instance.barrels;
     }
     public void Awake()
     {
@@ -103,6 +105,7 @@ public class CharSCR : Unit
 
     private void Update()
     {
+        
         if (State != CharState.Die)
             State = CharState.Idle;
         dieTrigger = false;
@@ -216,6 +219,7 @@ public class CharSCR : Unit
             patronBar.Refresh();
         }
         Debug.Log("Осталось" + patrons + "патронов");
+        SavePlayer();
     }
     private void Jump()
     {
@@ -239,6 +243,7 @@ public class CharSCR : Unit
             takeDamage = 1;
             Debug.Log(lives);
         }
+        SavePlayer();
     }
     private void CheckGround()
     {
@@ -269,6 +274,12 @@ public class CharSCR : Unit
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+    public void SavePlayer()
+    {
+        GlobalObject.Instance.lives = Lives;
+        GlobalObject.Instance.patrons = Patrons;
+        GlobalObject.Instance.barrels = Barrels;
     }
 }
 

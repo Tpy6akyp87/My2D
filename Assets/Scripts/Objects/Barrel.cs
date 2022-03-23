@@ -22,6 +22,7 @@ public class Barrel : MonoBehaviour
             Vector3 position = transform.position;
             GameObject newSparkle = Instantiate(sparkles, position, sparkles.transform.rotation) as GameObject;
             Destroy(newSparkle, 1.5F);
+            character.SavePlayer();
         }
     }
 }
