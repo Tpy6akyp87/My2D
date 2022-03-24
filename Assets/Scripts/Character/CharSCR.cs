@@ -73,9 +73,9 @@ public class CharSCR : Unit
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
         groundLayer = LayerMask.NameToLayer("Ground");
-        Lives = GlobalObject.Instance.lives;
-        Patrons = GlobalObject.Instance.patrons;
-        Barrels = GlobalObject.Instance.barrels;
+        //Lives = GlobalObject.Instance.lives;
+        //Patrons = GlobalObject.Instance.patrons;
+        //Barrels = GlobalObject.Instance.barrels;
     }
     public void Awake()
     {
@@ -219,7 +219,7 @@ public class CharSCR : Unit
             patronBar.Refresh();
         }
         Debug.Log("Осталось" + patrons + "патронов");
-        SavePlayer();
+        //SavePlayer();
     }
     private void Jump()
     {
@@ -243,7 +243,7 @@ public class CharSCR : Unit
             takeDamage = 1;
             Debug.Log(lives);
         }
-        SavePlayer();
+        //SavePlayer();
     }
     private void CheckGround()
     {
@@ -275,12 +275,12 @@ public class CharSCR : Unit
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
-    public void SavePlayer()
-    {
-        GlobalObject.Instance.lives = Lives;
-        GlobalObject.Instance.patrons = Patrons;
-        GlobalObject.Instance.barrels = Barrels;
-    }
+    //public void SavePlayer()
+    //{
+    //    GlobalObject.Instance.lives = Lives;
+    //    GlobalObject.Instance.patrons = Patrons;
+    //    GlobalObject.Instance.barrels = Barrels;
+    //}
 }
 
 public enum CharState{
