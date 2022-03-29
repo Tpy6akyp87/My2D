@@ -23,6 +23,7 @@ public class Dialog : MonoBehaviour
     private void DialogFade()
     {
         panelDialog.SetActive(false);
+        dialogStart = false;
     }
     private void Print() { StartCoroutine(PrintMessagePerTime(message[i])); }
     IEnumerator PrintMessagePerTime(string text) 
@@ -53,7 +54,7 @@ public class Dialog : MonoBehaviour
     }
     private void Update()
     {
-        panelDialog.transform.position = thoseWhoSay.transform.position;
+        panelDialog.transform.position = thoseWhoSay.transform.position+ new Vector3(0.0f,0.5f,0.0f);
         if (dialogStart == true)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && i < skolkoFraz-1 && wordIsDone)
