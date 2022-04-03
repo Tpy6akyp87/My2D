@@ -9,8 +9,8 @@ public class MonsterRoof : Monster
     private Color bulletColor = Color.white;
     private SpriteRenderer sprite;
     private CharSCR pers;
-    [SerializeField]
-    private Transform target;
+    //[SerializeField]
+    //private Transform target;
     private Vector3 direction;
     private Vector3 directionV;
     private Animator animator;
@@ -38,7 +38,7 @@ public class MonsterRoof : Monster
             position.x += (sprite.flipX ? -1.0F : 1.0F) * 0.1F;
             Bullet newBullet = Instantiate(bullet, position, bullet.transform.rotation) as Bullet;
             newBullet.Parent = gameObject;
-            newBullet.Direction = target.transform.position - position;
+            newBullet.Direction = pers.transform.position - position;
             newBullet.Color = bulletColor;
             newBullet.speed = 15.0F;
         }

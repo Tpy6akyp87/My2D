@@ -23,7 +23,6 @@ public class Dialog : MonoBehaviour
     private void DialogFade()
     {
         panelDialog.SetActive(false);
-        dialogStart = false;
     }
     private void Print() { StartCoroutine(PrintMessagePerTime(message[i])); }
     IEnumerator PrintMessagePerTime(string text) 
@@ -36,7 +35,6 @@ public class Dialog : MonoBehaviour
                 clickImg.SetActive(true);
                 wordIsDone = true; 
             }
-            Debug.Log("k равно  " + k);
             yield return new WaitForSeconds(0.08f);
         }
     }
@@ -46,7 +44,6 @@ public class Dialog : MonoBehaviour
         if (collision.tag == "Player")
         {
             skolkoFraz = message.Length;
-            Debug.Log(skolkoFraz);
             panelDialog.SetActive(true);
             dialogStart = true;
             Print();
@@ -63,17 +60,25 @@ public class Dialog : MonoBehaviour
                 Print();
                 wordIsDone = false;
                 clickImg.SetActive(false);
-                Debug.Log("i равно  " + i);
             }
             if (i == skolkoFraz-1 && wordIsDone) 
             { 
                 Invoke("DialogFade", 2);
+                dialogStart = false;
                 clickImg.SetActive(false);
             }
             if (i == skolkoFraz-1)
             {
                 clickImg.SetActive(false);
             }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            Invoke("DialogFade", 2);
+            dialogStart = false;
         }
     }
 }

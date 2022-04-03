@@ -15,7 +15,7 @@ public class Minotaur : Monster
     private GameObject blood;
     public GameObject ground;
     public GameObject key;
-    private int lives = 10;
+    private int lives = 20;
     private bool isBattleBegin = false;
     protected override void Awake()
     {

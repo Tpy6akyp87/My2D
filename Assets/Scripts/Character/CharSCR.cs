@@ -9,6 +9,7 @@ public class CharSCR : Unit
     private int patrons = 6;
     private int lives = 5;
     private int barrels = 0;
+    private float time;
     private HealthBar healthBar;
     private PatronBar patronBar;
     private BarrelPanel barrelPanel;
@@ -36,9 +37,7 @@ public class CharSCR : Unit
 
     private float takeDamage;
     public bool dieTrigger;
-    //public float distanceToGround = 1.0f;
-    //private GoundCheck goungCheck;
-    //private float distToGround;
+    public Timer timer;
 
     public int Barrels
     {
@@ -73,9 +72,10 @@ public class CharSCR : Unit
         playerObject = LayerMask.NameToLayer("Player");
         platformObject = LayerMask.NameToLayer("Platforms");
         groundLayer = LayerMask.NameToLayer("Ground");
-        //Lives = GlobalObject.Instance.lives;
-        //Patrons = GlobalObject.Instance.patrons;
-        //Barrels = GlobalObject.Instance.barrels;
+        Lives = GlobalObject.lives;
+        Patrons = GlobalObject.patrons;
+        Barrels = GlobalObject.barrels;
+        time = GlobalObject.time;
     }
     public void Awake()
     {
@@ -86,17 +86,12 @@ public class CharSCR : Unit
         animator = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         bullet = Resources.Load<Bullet>("Bullet1");
-        //goungCheck = FindObjectOfType<GoundCheck>();
+        timer = FindObjectOfType<Timer>();
     }
     private void FixedUpdate()
     {
         CheckGround();
     }
-    //private bool Grounded()
-    //{
-    //    return goungCheck.isGrounded;
-    //   // return new GameObject GetComponent<GoundCheck>().isGrounded;
-    //}
     public CharState State
     {
         get { return (CharState)animator.GetInteger("State"); }
@@ -174,6 +169,7 @@ public class CharSCR : Unit
         {
             timeBtwAtack -= Time.deltaTime;
         }
+        time = timer.timeStart;
 
 
     }
@@ -219,7 +215,7 @@ public class CharSCR : Unit
             patronBar.Refresh();
         }
         Debug.Log("Осталось" + patrons + "патронов");
-        //SavePlayer();
+        SavePlayer();
     }
     private void Jump()
     {
@@ -243,14 +239,11 @@ public class CharSCR : Unit
             takeDamage = 1;
             Debug.Log(lives);
         }
-        //SavePlayer();
+        SavePlayer();
     }
     private void CheckGround()
     {
         isGrounded = rigidbody.velocity.y == 0;
-        //isGrounded = Physics2D.Raycast(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, distanceToGround); //, playerObject
-        //Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector2.down, Color.yellow, distanceToGround);
-
     }
 
 
@@ -275,12 +268,13 @@ public class CharSCR : Unit
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
-    //public void SavePlayer()
-    //{
-    //    GlobalObject.Instance.lives = Lives;
-    //    GlobalObject.Instance.patrons = Patrons;
-    //    GlobalObject.Instance.barrels = Barrels;
-    //}
+    public void SavePlayer()
+    {
+        GlobalObject.lives = Lives;
+        GlobalObject.patrons = Patrons;
+        GlobalObject.barrels = Barrels;
+        GlobalObject.time = time;
+    }
 }
 
 public enum CharState{
