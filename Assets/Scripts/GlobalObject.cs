@@ -14,11 +14,13 @@ public class GlobalObject : MonoBehaviour
     {
         if (Instance == null)
         {
+            Debug.Log("НЕ Жмыхнуло");
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }
         else if (Instance != this)
         {
+            Debug.Log("Жмыхнуло");
             Destroy(gameObject);
         }
         gameObject.transform.position = FindObjectOfType<Resurrect>().transform.position;

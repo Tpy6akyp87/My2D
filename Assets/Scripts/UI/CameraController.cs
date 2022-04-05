@@ -16,8 +16,8 @@ public class CameraController : MonoBehaviour
     {
         Vector3 position = pers.transform.position;
         position.z = -50.0F;
-        if (pers.isFlip) position.x = position.x + 3.0F;
-        else position.x = position.x - 3.0F;
+        //if (pers.isFlip) position.x = position.x + 3.0F;
+        //else position.x = position.x - 3.0F;
         transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
     }
 }
