@@ -7,12 +7,13 @@ public class Dialog : MonoBehaviour
 {
     public GameObject panelDialog;
     public GameObject thoseWhoSay;
-    public GameObject clickImg;
+    //public GameObject clickImg;
     public Text textCS;
     public string textMessage;
     public string[] message;
     public bool dialogStart = false;
     public bool wordIsDone = false;
+    public bool diaStrted = false;
     private int i = 0;
     public int skolkoFraz;
 
@@ -32,7 +33,7 @@ public class Dialog : MonoBehaviour
             textCS.text = text.Substring(0, k);
             if (k == text.Length)
             {
-                clickImg.SetActive(true);
+                //clickImg.SetActive(true);
                 wordIsDone = true; 
             }
             yield return new WaitForSeconds(0.08f);
@@ -41,12 +42,13 @@ public class Dialog : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Вошел в диалог");
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !diaStrted)
         {
             skolkoFraz = message.Length;
             panelDialog.SetActive(true);
             dialogStart = true;
             Print();
+            diaStrted = true;
         }
     }
     private void Update()
@@ -59,17 +61,17 @@ public class Dialog : MonoBehaviour
                 i++;
                 Print();
                 wordIsDone = false;
-                clickImg.SetActive(false);
+                //clickImg.SetActive(false);
             }
             if (i == skolkoFraz-1 && wordIsDone) 
             { 
                 Invoke("DialogFade", 2);
                 dialogStart = false;
-                clickImg.SetActive(false);
+                //clickImg.SetActive(false);
             }
             if (i == skolkoFraz-1)
             {
-                clickImg.SetActive(false);
+                //clickImg.SetActive(false);
             }
         }
     }
@@ -79,6 +81,7 @@ public class Dialog : MonoBehaviour
         {
             Invoke("DialogFade", 2);
             dialogStart = false;
+            //clickImg.SetActive(false);
         }
     }
 }
