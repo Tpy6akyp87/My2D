@@ -9,7 +9,7 @@ public class CharSCR : Unit
     private int patrons = 6;
     private int lives = 5;
     private int barrels = 0;
-    private float time;
+    public float time;
     private HealthBar healthBar;
     private PatronBar patronBar;
     private BarrelPanel barrelPanel;
