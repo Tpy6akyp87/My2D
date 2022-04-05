@@ -18,7 +18,7 @@ public class GlobalObject : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             Instance = this;
         }
-        else if (Instance != this)
+        else if (Instance != this) // может удалить else или if
         {
             Debug.Log("∆мыхнуло");
             Destroy(gameObject);
