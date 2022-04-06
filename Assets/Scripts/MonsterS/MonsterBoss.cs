@@ -20,7 +20,7 @@ public class MonsterBoss : Monster
     public GameObject ground;
     public GameObject key;
     public GameObject frostWall;
-    public int lives = 25;
+    public int lives = 20;
     private bool isBattleBegin = false;
     public float distBtw;
     public float timeBtwShoot;

@@ -7,7 +7,7 @@ public class CharSCR : Unit
 {
     [SerializeField]
     private int patrons = 6;
-    private int lives = 5;
+    private int lives = 500;
     private int barrels = 0;
     public float time;
     private HealthBar healthBar;
@@ -225,7 +225,7 @@ public class CharSCR : Unit
     {
         if (timerDamage < 0) //1 сек неу€звимости после получени€ урона
         {
-            Lives--;
+            //Lives--;
             timerDamage = 1.0F;
         }
 
