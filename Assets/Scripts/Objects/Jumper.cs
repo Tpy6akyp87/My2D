@@ -14,7 +14,7 @@ public class Jumper : MonoBehaviour
     }
     private void Jump()
     {
-        if ((pers.transform.position - transform.position).magnitude < jumpDist && pers.transform.position.y > transform.position.y && Mathf.Abs(pers.transform.position.x - transform.position.x)<=0.4)
+        if ((pers.transform.position - transform.position).magnitude < jumpDist && pers.transform.position.y > transform.position.y && Mathf.Abs(pers.transform.position.x - transform.position.x)<=0.6)
         {
             pers.rigidbody.velocity = new Vector3(0, jumpForce, 0);
         }

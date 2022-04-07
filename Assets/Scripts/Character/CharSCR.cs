@@ -226,7 +226,7 @@ public class CharSCR : Unit
     {
         if (timerDamage < 0) //1 сек неу€звимости после получени€ урона
         {
-            //Lives--;
+            Lives--;
             timerDamage = 1.0F;
         }
 

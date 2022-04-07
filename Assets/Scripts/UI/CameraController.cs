@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
+        Cursor.visible = false;
         Vector3 position = pers.transform.position;
         position.z = -50.0F;
         //if (pers.isFlip) position.x = position.x + 3.0F;
