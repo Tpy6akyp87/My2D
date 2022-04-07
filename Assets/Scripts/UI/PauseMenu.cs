@@ -7,6 +7,11 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseUNMenuUI;
+    public CameraController cursVisible;
+    private void Start()
+    {
+        cursVisible = FindObjectOfType<CameraController>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -28,12 +33,14 @@ public class PauseMenu : MonoBehaviour
         pauseUNMenuUI.SetActive(false);
         Time.timeScale = 1.0F;
         GameIsPaused = false;
+        cursVisible.visisble = false;
     }
     private void Pause()
     {
         pauseUNMenuUI.SetActive(true);
         Time.timeScale = 0.0F;
         GameIsPaused = true;
+        cursVisible.visisble = true;
     }
     public void LoadMenu()
     {

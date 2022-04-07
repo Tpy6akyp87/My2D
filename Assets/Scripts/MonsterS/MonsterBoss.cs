@@ -85,6 +85,7 @@ public class MonsterBoss : Monster
         {
             isBattleBegin = false;
             State = 0;
+            frostWall.SetActive(false);
         }
 
     }
