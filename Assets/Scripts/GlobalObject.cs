@@ -16,14 +16,14 @@ public class GlobalObject : MonoBehaviour
     }
     void Awake()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
+        //GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
 
-        if (objs.Length > 1)
-        {
-            Destroy(this.gameObject);
-        }
+        //if (objs.Length > 1)
+        //{
+        //    Destroy(this.gameObject);
+        //}
 
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
         gameObject.transform.position = FindObjectOfType<Resurrect>().transform.position;
 
         //if (Instance == null)

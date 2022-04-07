@@ -7,7 +7,7 @@ public class CharSCR : Unit
 {
     [SerializeField]
     private int patrons = 6;
-    private int lives = 500;
+    private int lives = 5;
     private int barrels = 0;
     public float time;
     private HealthBar healthBar;
@@ -176,12 +176,13 @@ public class CharSCR : Unit
     public void Ressurrect()
     {
         State = CharState.Idle;
-        Lives = 2;
-        Patrons = 3;
+        Lives = 5;
+        Patrons = 6;
         speed = 5.0F;
         speed = 5.0F;
         Debug.Log("я воскрес");
         takeDamage = 0;
+        State = CharState.Idle;
     }
 
     public void Run()
@@ -198,7 +199,7 @@ public class CharSCR : Unit
     {
         Vector3 direction = transform.up * Input.GetAxis("Vertical");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
-        sprite.flipX = direction.x < 0;
+        //sprite.flipX = direction.x < 0;
         State = CharState.Run;
     }
     public void Shoot()
