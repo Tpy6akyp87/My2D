@@ -25,6 +25,13 @@ public class CharSCR : Unit
     int playerObject, platformObject,groundLayer;
     public bool isFlip = false;
 
+    public bool runLeft = false;
+    public bool runRight = false;
+    public bool climbUp = false;
+    public bool climbDown = false;
+    public bool shooted = false;
+    public bool attacked = false;
+
     public Transform attackPos;
     public LayerMask enemy;
     public float attackRange;
@@ -145,12 +152,12 @@ public class CharSCR : Unit
         //Debug.Log(timeBtwShoot);
         if (timeBtwShoot <= 0 && Patrons > 0 && State != CharState.Die)
         {
-            if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused)
+            if (Input.GetButtonDown("Fire2") && !PauseMenu.GameIsPaused || shooted && !PauseMenu.GameIsPaused)
             {
                 Debug.Log("Выстрел");
                 State = CharState.Shoot;
-                //Shoot();
                 timeBtwShoot = startTimeBtwShoot;
+                shooted = false;
             }
         }
         else
@@ -159,10 +166,17 @@ public class CharSCR : Unit
         }
         if (timeBtwAtack <= 0 && State != CharState.Die)// удар
         {
-            if (Input.GetButtonDown("Fire1"))
+            //if (Input.GetButtonDown("Fire1") || attacked && !PauseMenu.GameIsPaused)
+            //{
+            //    State = CharState.Meelee;
+            //    timeBtwAtack = startTimeBtwAttack;
+            //    attacked = false;
+            //}
+            if (attacked && !PauseMenu.GameIsPaused)
             {
                 State = CharState.Meelee;
                 timeBtwAtack = startTimeBtwAttack;
+                attacked = false;
             }
         }
         else
@@ -171,6 +185,23 @@ public class CharSCR : Unit
         }
         time = timer.timeStart;
 
+
+        if (runLeft && State != CharState.Die)
+        {
+            MobileRunLeft();
+        }
+        if (runRight && State != CharState.Die)
+        {
+            MobileRunRight();
+        }
+        if (climbUp && State != CharState.Die)
+        {
+            MobileClimbUp();
+        }
+        if (climbDown && State != CharState.Die)
+        {
+            MobileClimdDown();
+        }
 
     }
     public void Ressurrect()
@@ -195,6 +226,62 @@ public class CharSCR : Unit
         isFlip = !sprite.flipX;
         State = CharState.Run;
     }
+    public void MobileStop()
+    {
+        runLeft = false;
+        runRight = false;
+        climbUp = false;
+        climbDown = false;
+    }
+    public void MobileRunLeft()
+    {
+        runLeft = true;
+        Vector3 direction = -transform.right;
+        attackPos.transform.position = gameObject.transform.position + new Vector3(-0.33F, -0.34F, 0);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        sprite.flipX = true;
+        isFlip = false;
+        State = CharState.Run;
+    }
+    public void MobileRunRight()
+    {
+        runRight = true;
+        Vector3 direction = transform.right;
+        attackPos.transform.position = gameObject.transform.position + new Vector3(0.33F, -0.34F, 0);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        sprite.flipX = false;
+        isFlip = true;
+        State = CharState.Run;
+    }
+    public void MobileClimbUp()
+    {
+        climbUp = true;
+        Vector3 direction = transform.up;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        State = CharState.Run;
+    }
+    public void MobileClimdDown()
+    {
+        climbDown = true;
+        Vector3 direction = -transform.up;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        State = CharState.Run;
+    }
+    public void MobileJump()
+    {
+        if (isGrounded && State != CharState.Die) //прыжок
+        {
+            Jump();
+        }
+    }
+    public void MobileAttack()
+    {
+        attacked = true;
+    }
+    public void MobileShoot()
+    {
+        shooted = true;
+    }
     public void Climb()
     {
         Vector3 direction = transform.up * Input.GetAxis("Vertical");
@@ -218,7 +305,7 @@ public class CharSCR : Unit
         Debug.Log("Осталось" + patrons + "патронов");
         SavePlayer();
     }
-    private void Jump()
+    public void Jump()
     {
         rigidbody.velocity = new Vector3(0, jumpForce, 0);
     }

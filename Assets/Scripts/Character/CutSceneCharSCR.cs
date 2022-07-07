@@ -10,6 +10,7 @@ public class CutSceneCharSCR : Unit
     new public Rigidbody2D rigidbody;
     private Animator animator;
     private SpriteRenderer sprite;
+    public bool runRight = false;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,6 +27,10 @@ public class CutSceneCharSCR : Unit
         State = CharStateC.Idle;
 
         if (Input.GetButton("Horizontal")) Run();
+        if (runRight)
+        {
+            MobileRunRight();
+        }
     }
     private void Run()
     {
@@ -36,7 +41,18 @@ public class CutSceneCharSCR : Unit
             transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speedwalk * Time.deltaTime);
         }
     }
-  
+    public void MobileRunRight()
+    {
+        runRight = true;
+        Vector3 direction = transform.right;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speedwalk * Time.deltaTime);
+        State = CharStateC.Run;
+    }
+    public void MobileStop()
+    {
+        runRight = false;
+    }
+
 }
 
 public enum CharStateC

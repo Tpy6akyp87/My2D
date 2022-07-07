@@ -7,6 +7,7 @@ public class Telega : MonoBehaviour
     public GameObject Thievs;
     public float speed = 2.0F;
     private GameObject sparkles;
+    public bool runRight = false;
     private void Awake()
     {
         sparkles = Resources.Load<GameObject>("Smoke");
@@ -17,7 +18,21 @@ public class Telega : MonoBehaviour
         {
             Run(); //Debug.Log(State);
         }
-        
+        if (runRight)
+        {
+            MobileRunRight();
+        }
+
+    }
+    public void MobileRunRight()
+    {
+        runRight = true;
+        Vector3 direction = transform.right;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+    }
+    public void MobileStop()
+    {
+        runRight = false;
     }
     public void ActivateThiefs()
     {
